@@ -1,0 +1,124 @@
+.contact{
+    padding: 5rem 0;
+}
+.contact-container{
+    max-width: var(--max-width-container);
+    padding: var(--padding-container);
+    margin: auto;
+    color: var(--text-color);
+}
+.contact__title{
+    text-align: center;
+    font-weight: 700;
+    margin: 0 0 2rem;
+    text-shadow: 0 0 0.125rem var(--shadow-color-primary),
+    0 0 0.5rem var(--shadow-color-primary);
+}
+.contact__contact-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    background-color: var(--background-color-primary);
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 20px var(--box-shadow-color);
+    overflow: hidden;
+    padding: 2rem;
+}
+.contact__subtitle{
+    text-align: center;
+    font-weight: 700;
+    margin: 10px 0;
+    text-shadow: 0 0 0.125rem var(--shadow-color-primary),
+    0 0 0.5rem var(--shadow-color-primary);
+}
+.contact__form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+.contact__form-input{
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 1.5rem;
+    border-color: var(--shadow-color-primary);
+    outline-color: var(--shadow-color-primary);
+    resize: none;
+}
+.contact__form-button{
+    font-weight: 700;
+    background-color: var(--button-color-primary);
+    border: 2px solid var(--text-color);
+    border-radius: var(--border-radius);
+    padding: 0.8rem;
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+    transition: var(--all-transitions);
+}
+.contact__form-button:hover{
+    background-color: var(--secondary-shadow-color);
+    border: 2px solid var(--text-color);
+    color: black;
+}
+.container_contact-phones-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 5px 20px var(--box-shadow-color);
+    border-radius: var(--border-radius);
+}
+.contact__phones-list{
+    text-decoration: none;
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.contact__phones-list-link{
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 1.125rem;
+}
+.contact__social-container{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 0;
+    padding: 1rem;
+    list-style: none;
+}
+.contact__social-link{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: var(--all-transitions);
+}
+.contact__social-link:hover{
+    transform: translateY(-10px);
+}
+@media(min-width:854px){
+    .contact__contact-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        gap: 2rem;
+    }
+    .contact__title{
+        text-align: left;
+    }
+    .container_contact-phones-container{
+        padding: 2rem;
+    }
+}

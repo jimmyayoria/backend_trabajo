@@ -1,0 +1,21 @@
+@import url(./header.css);
+@import url(./carousel.css);
+@import url(./about.css);
+@import url(./specialties.css);
+@import url(./offices.css);
+@import url(./contact.css);
+@import url(./footer.css);
+@import url(./variables.css);
+
+.body{
+    font-family: 'Josefin Sans', sans-serif;
+    margin: 0;
+    background-color: var(--background-color-secondary);
+}
+.body--dark {
+    --background-color-primary:  #2d2c2c;
+    --background-color-secondary: #383838;
+    --text-color: #fff;
+    --primary-shadow-color: #8888;
+    --box-shadow-color: #000000cc;
+}
