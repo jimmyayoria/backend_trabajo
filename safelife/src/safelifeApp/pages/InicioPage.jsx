@@ -296,6 +296,75 @@ export const InicioPage = () => {
                     </div>
                 </section>
 
+                <section class="offices" id="offices">
+                    <div class="offices-container">
+                        <h2 class="offices__title">🏥 Sedes 🏥</h2>
+                        <div class="offices__offices-container">
+                            <ul class="offices__offices-list">
+                                <li class="offices__offices-item">SEDE 1: Dirección sede 1</li>
+                                <li class="offices__offices-item">SEDE 2: Dirección sede 2</li>
+                                <li class="offices__offices-item">SEDE 3: Dirección sede 3</li>
+                                <li class="offices__offices-item">SEDE 4: Dirección sede 4</li>
+                                <li class="offices__offices-item">SEDE 5: Dirección sede 5</li>
+                            </ul>
+                            <div class="offices__offices-map-container">
+                                <iframe src="https://www.google.com/maps/d/embed?mid=1SHFYiZI4txabTxm05ErfNca12IWrarc&ehbc=2E312F" class="offices__offices-map"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="contact" id="contact">
+                    <div class="contact-container">
+                        <h2 class="contact__title">📱 Contactos 📱</h2>
+                        <div class="contact__contact-container">
+                            <div class="contact__contact-form-container">
+                                <form action="" class="contact__form">
+                                    <h3 class="contact__subtitle">Más Información</h3>
+                                    <input type="text" placeholder="Nombre y Apellido" class="contact__form-input" required />
+                                    <input type="number" placeholder="DNI" class="contact__form-input" required />
+                                    <input type="number" placeholder="Teléfono" class="contact__form-input" required />
+                                    <input type="email" placeholder="Correo electrónico" class="contact__form-input" required />
+                                    <h3 class="contact__subtitle">Consulta 🖊</h3>
+                                    <textarea class="contact__form-input" cols="30" rows="5" required></textarea>
+                                    
+                                    <button class="contact__form-button">
+                                        <span class="text">✅ Enviar</span>
+                                        <i class=" icon"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="container_contact-phones-container">
+                                <h3 class="contact__subtitle">Teléfonos: </h3>
+                                <ul class="contact__phones-list">
+                                    <li class="contact__phones-list-item">
+                                        <a class="contact__phones-list-link" href="tel:+51987587145">📞 +51 987587145</a>
+                                    </li>
+                                    <li class="contact__phones-list-item">
+                                        <a class="contact__phones-list-link" href="tel:+51987587145">📞 +51 987587145</a>
+                                    </li>
+                                    <li class="contact__phones-list-item">
+                                        <a class="contact__phones-list-link" href="tel:+51987587145">📞 +51 987587145</a>
+                                    </li>
+                                </ul>
+                                <h3 class="contact__subtitle">Redes Sociales</h3>
+                                <div class="contact__social-container">
+                                    <a class="contact__social-link" href="#">
+                                        <img src="https://i.postimg.cc/7YHyZXZX/facebook.png" width="50rem" alt="imagen facebook"/>
+                                    </a>
+                                    <a class="contact__social-link" href="#">
+                                        <img src="https://i.postimg.cc/sfJtqS4W/instagram.png" alt="imagen instagram" width="50rem" />
+                                    </a>
+                                    <a class="contact__social-link" href="#">
+                                        <img src="https://i.postimg.cc/dtPYcvbM/youtube.png" alt="imagen youtube" width="50rem"/>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </section>
+
 
         </SafelifeLayout>
       
