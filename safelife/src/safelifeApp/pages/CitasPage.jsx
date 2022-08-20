@@ -1,17 +1,13 @@
 import logo from '../../assets/img/logo.jpeg';
 import { useEffect } from "react";
-import { Calendar } from 'react-big-calendar';
-import { dateFnsLocalizer } from 'react-big-calendar';
-import { format, parse, startOfWeek, getDay } from 'date-fns';
-import esES from 'date-fns/locale/es';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import {useState} from 'react';
+
 
 export const CitasPage=()=>{
 
-    /*const getCita= async (id)=>{
+    const getCita= async (id)=>{
 
-        /*const documentFormCita = document.forms['formCita'];
+        const documentFormCita = document.forms['formCita'];
     
         const res= await fetch(`${URL_BASE}cita/buscar/${id}`).then();
         const data= await res.json();
@@ -25,68 +21,8 @@ export const CitasPage=()=>{
         documentFormCita['hora'].value=hora;
     
         myModal.show();
-    }*/
+    }
 
-    const [date, setDate] = useState(new Date())
-
-    const locales = {
-        'es': esES,
-      }
-      
-      const localizer = dateFnsLocalizer({
-          format,
-          parse,
-          startOfWeek,
-          getDay,
-          locales,
-        });
-
-        const getMessagesES = () => {
-            return {
-                allDay: 'Todo el día',
-                previous: '<',
-                next: '>',
-                today: 'Hoy',
-                month: 'Mes',
-                week: 'Semana',
-                day: 'Día',
-                agenda: 'Agenda',
-                date: 'Fecha',
-                time: 'Hora',
-                event: 'Evento',
-                noEventsInRange: 'No hay eventos en este rango',
-                showMore: total => `+ Ver más (${total})`
-            };
-        }
-
-     const CalendarEvent = ({ event }) => {
-
-            const { title, user } = event;
-        
-            return (
-                <>
-                    <strong>{ title }</strong>
-                    <span> - { user.name }</span>
-                </>
-            )
-        }
-
-        const handleChange=(value)=>{
-
-            console.log(value);
-        }
-
-
-    const onSelect = ( event ) => {
-         console.log({ click: event });
-        //setActiveEvent( event );
-        }
-
-    const onDoubleClick = ( event ) => {
-        console.log("prueba");
-        // console.log({ doubleClick: event });
-        //openDateModal();
-        }
 
         const calendario=(eventos)=>{
 
@@ -119,7 +55,6 @@ export const CitasPage=()=>{
                          // console.log(idCita);
                         //getCita(info.id);
                         
-            
                     }
                 });
             }
@@ -127,6 +62,7 @@ export const CitasPage=()=>{
 useEffect(() => {
     calendario();
     }, []);
+
 
     return (
        
@@ -136,14 +72,13 @@ useEffect(() => {
 
                 <div className="container">
             
-                    <a className="navbar-brand me-2" href="#">
+                    <a className="navbar-brand me-2" href="/">
                         <img src={logo} height="40" alt="MDB Logo" loading="lazy" />
                     </a>
 
                 
-                    <button className="navbar-toggler" type="button" data-mdb-toggle="collapse"
-                        data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false"
-                        aria-label="Toggle navigation">
+                    <button className="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" 
+                        aria-expanded="false" aria-label="Toggle navigation">
                         <i className="fas fa-bars"></i>
                     </button>
 
@@ -155,8 +90,7 @@ useEffect(() => {
                     
 
                         <div className="d-flex align-items-center">
-                            Bienvenido: &nbsp; <span className="me-4" id="navNombreUsuario"> MIGUEL ANGEL GUEVARA
-                                ALEJANDRO</span>
+                            Bienvenido: &nbsp; <span className="me-4" id="navNombreUsuario"> MIGUEL ANGEL GUEVARA ALEJANDRO</span>
                             <button type="button" className="btn btn-primary me-3" id="btnCerrarSesion">
                                 Cerrar Sesion
                             </button>
@@ -179,7 +113,7 @@ useEffect(() => {
                 </li>
                 <li className="nav-item" role="presentation">
                     <a className="nav-link" id="ex3-tab-3" data-mdb-toggle="tab" href="#ex3-tabs-3" role="tab"
-                        aria-controls="ex3-tabs-3" aria-selected="false">MI INFORMACION</a>
+                        aria-controls="ex3-tabs-3" aria-selected="false">FICHA PACIENTE</a>
                 </li>
             </ul>
 
@@ -187,7 +121,7 @@ useEffect(() => {
 
                 <div className="tab-pane fade show active" id="ex3-tabs-1" role="tabpanel" aria-labelledby="ex3-tab-1">
 
-                <br />
+                    <br />
                     <div className="ui container">
                         <div className="ui grid">
                             <div className="ui sixteen column">
@@ -202,63 +136,173 @@ useEffect(() => {
 
                 <div className="tab-pane fade" id="ex3-tabs-2" role="tabpanel" aria-labelledby="ex3-tab-2">
 
-                    <form className="row g-3 needs-validation" id="frmRegistroCita" novalidate>
+                    <div className="row ">
+                    
+                        <form className="row g-3 needs-validation" id="frmRegistroCita" >
 
-                        <div className="col-md-4">
-                            <div className="form-group">
-                                <label for="">Doctor</label>
-                                <select className="form-control" name="doctor_" id="cmbDoctorRegistro" required>
-                                    <option value=""></option>
-                                </select>
-                                <div className="invalid-feedback">Selecciona un doctor.</div>
+                            <div className="col-4 ">
+                                <div className="list-group list-group-light" id="list-tab" role="tablist">
+                                <a className="list-group-item list-group-item-action active px-3 border-0" id="list-home-list"
+                                    data-mdb-toggle="list" href="#list-home" role="tab" aria-controls="list-home" >Especialidad</a>
+                                <a className="list-group-item list-group-item-action px-3 border-0" id="list-profile-list"
+                                    data-mdb-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile" >Fecha y Hora</a>
+                                <a className="list-group-item list-group-item-action px-3 border-0" id="list-messages-list"
+                                    data-mdb-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages" >Doctor</a>
+                                <a className="list-group-item list-group-item-action px-3 border-0" id="list-settings-list"
+                                    data-mdb-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings" >Pagar Cita</a>
+                                </div>
                             </div>
-                        </div>
+                            <div className="col-8">
+                                <div className="tab-content" id="nav-tabContent">
+                                <div className="tab-pane fade show active" id="list-home" role="tabpanel"
+                                    aria-labelledby="list-home-list">
+
+                                        <div className="col-md-4">
+
+                                            <div className="form-group">
+                                                <label htmlFor="cmbEspecialidadRegistro">Especialidad</label>
+                                                <select className="form-control" name="especialidad_" id="cmbEspecialidadRegistro" >
+                                                    <option value=""></option>
+                                                </select>
+                                                <div className="invalid-feedback">Selecciona una especialidad.</div>
+                                            </div>
+
+                                        </div>
+
+                                        <hr />
 
 
-                        <div className="col-md-4">
+                                </div>
+                                <div className="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
 
-                            <div className="form-group">
-                                <label for="">Especialidad</label>
-                                <select className="form-control" name="especialidad_" id="cmbEspecialidadRegistro" required>
-                                    <option value=""></option>
-                                </select>
-                                <div className="invalid-feedback">Selecciona una especialidad.</div>
+                                    <div className="row">
+
+                                        <label htmlFor="cmbDoctorRegistro">Seleccione una fecha y hora</label>
+
+                                        <div className="col-md-4">
+                                            <div className="input-group">
+                                                <input type="date" className="form-control" name="fecha_" id="validationCustomUsername" aria-describedby="inputGroupPrepend"  />
+                                            </div>
+                                        </div>
+
+                                        <div className="col-md-2">
+                                            <div className="form-outline">
+                                                <input type="time" className="form-control" name="hora_" id="validationCustom03"  />
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <hr />
+
+
+
+                                </div>
+
+                                <div className="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+
+                                <table className="table align-middle mb-0 bg-white">
+                                    <thead className="bg-light">
+                                        <tr>
+                                        <th>Nombre</th>
+                                        <th>Especialidad</th>
+                                        <th>Estado</th>
+                                        <th>Accion</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div className="d-flex align-items-center">
+                                                <img
+                                                    src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                                                    style={ {width: '45px', height: '45px'}}
+                                                    className="rounded-circle"
+                                                    />
+                                                <div className="ms-3">
+                                                    <p className="fw-bold mb-1">John Doe</p>
+                                                    <p className="text-muted mb-0">john.doe@gmail.com</p>
+                                                </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p className="fw-normal mb-1">Software engineer</p>
+                                                <p className="text-muted mb-0">IT department</p>
+                                            </td>
+                                            <td>
+                                                <span className="badge badge-success rounded-pill d-inline">Disponible</span>
+                                            </td>
+                                            <td>
+                                                <button type="button" className="btn btn-link btn-sm btn-rounded" id='1' onClick={(e)=>{ console.log(e.target.id)}}>
+                                                    Seleccionar
+                                                </button>
+                                            </td>
+                                        </tr>
+
+                                    
+                                    </tbody>
+                                    </table>
+                                
+                                </div>
+
+
+                                <div className="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
+                                    <div className="tab-content" id="nav-tabContent">
+                                        <div className="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+
+                                                <div className="row">
+
+                                                    <div className="form-group col-3">
+                                                        <label> Especialidad</label>
+                                                        <input className='form-control' type="text" value="Neurologia" readOnly/>
+                                                    </div>
+
+                                                    <div className="form-group col-5">
+                                                        <label> Doctor</label>
+                                                        <input className='form-control' type="text" value="Miguel Guevara Alejandro" readOnly/>
+                                                    </div>
+
+                                                    <div className="form-group col-3">
+                                                        <label> Fecha</label>
+                                                        <input className='form-control' type="date" value="2022-08-20" readOnly/>
+                                                    </div>
+
+
+                                                    <div className="form-group col-1">
+                                                            <label> Sala</label>
+                                                            <input className='form-control' type="text" value="5" readOnly/>
+                                                    </div>
+
+
+                                                </div>
+
+
+                                                <hr/>
+
+                                                <div className="form-group col-3">
+                                                    <label> Monto a cancelar</label>
+                                                    <input className='form-control' type="text" value="50.00" readOnly/>
+                                                </div>
+
+                                                <div className="col-12 mt-3">
+                                                    <button className='btn btn-primary'>CANCELAR MONTO</button>
+                                                </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                </div>
                             </div>
 
-                        </div>
-
-                        <hr />
-
-                        <div className="col-md-4">
-                            <div className="input-group form-outline">
-                                <input type="date" className="form-control" name="fecha_" id="validationCustomUsername"
-                                    aria-describedby="inputGroupPrepend" required />
-                                <label for="validationCustomUsername" className="form-label">Fecha</label>
-                                <div className="invalid-feedback">Seleccione una fecha</div>
-                            </div>
-                        </div>
-
-                        <div className="col-md-2">
-                            <div className="form-outline">
-                                <input type="time" className="form-control" name="hora_" id="validationCustom03" required />
-                                <div className="invalid-feedback">Selecciona una hora</div>
-                            </div>
-                        </div>
-
-                        <hr />
-
-                        <div className="col-12">
-                            <button className="btn btn-primary" id="btnCrearCita" type="button"><i className="bi bi-save-fill"></i>
-                                &nbsp; GUARDAR</button>
-                        </div>
-
-                    </form>
-
+                        </form>
+                        
+                    </div>
 
                 </div>
 
                 <div className="tab-pane fade" id="ex3-tabs-3" role="tabpanel" aria-labelledby="ex3-tab-3">
-                    <form className="row g-3 needs-validation " novalidate>
+                    <form className="row g-3 needs-validation " >
 
                         <div className="col-md-8">
 
@@ -267,20 +311,16 @@ useEffect(() => {
                                 <input type="text" className="form-control" id="txtIdUsuario" value="Mark" hidden />
 
                                 <div className="col-md-6">
-                                    <div className="form-outline">
-                                        <input type="text" className="form-control" id="txtNombreUsuario" value="Mark"
-                                            readonly />
-                                        <label for="txtNombreUsuario" className="form-label">Nombres</label>
-                                        <div className="valid-feedback">Looks good!</div>
+                                    <div className="form-group">
+                                        <label htmlFor="txtNombreUsuario" className="form-label">Nombres</label>
+                                        <input type="text" className="form-control" id="txtNombreUsuario" value="Mark" readOnly />
                                     </div>
                                 </div>
 
                                 <div className="col-md-6">
-                                    <div className="form-outline">
-                                        <input type="text" className="form-control" id="txtApellidosUsuario" value="Otto"
-                                            readonly />
-                                        <label for="txtApellidosUsuario" className="form-label">Apellidos</label>
-                                        <div className="valid-feedback">Looks good!</div>
+                                    <div className="form-group">
+                                        <label htmlFor="txtApellidosUsuario" className="form-label">Apellidos</label>
+                                        <input type="text" className="form-control" id="txtApellidosUsuario" value="Otto" readOnly />
                                     </div>
                                 </div>
 
@@ -288,20 +328,69 @@ useEffect(() => {
 
                             <div className="row">
 
-                                <div className="col-2 mt-3">
-                                    <div className="form-outline">
-                                        <input type="number" className="form-control" id="txtEdad"  />
-                                        <label for="txtEdad" className="form-label">Edad</label>
-                                        <div className="invalid-feedback">Please provide a valid city.</div>
+                                <div className="col-1 mt-3">
+                                    <div className="form-group">
+                                        <label htmlFor="txtEdad" className="form-label">Edad</label>
+                                        <input type="number" className="form-control" id="txtEdad" readOnly />
                                     </div>
                                 </div>
 
-                                <div className="col-md-10 mt-3">
-                                    <div className="input-group form-outline">
-                                        <span className="input-group-text" id="inputGroupPrepend">@</span>
-                                        <input type="text" className="form-control" id="txtCorreoElectronico"
-                                            aria-describedby="inputGroupPrepend"  />
-                                        <label for="txtCorreoElectronico" className="form-label">Correo Electronico</label>
+                                <div className="col-md-5 mt-3">
+                                    <div className="form-group">
+                                        <label htmlFor="txtCorreoElectronico" className="form-label">Correo Electronico</label> 
+                                        <div className="input-group">
+                                            <span className="input-group-text" id="inputGroupPrepend">@</span>
+                                            <input type="text" className="form-control" id="txtCorreoElectronico" aria-describedby="inputGroupPrepend"  readOnly/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="col-md-6 mt-3">
+                                    <div className="form-group">
+                                        <label htmlFor="txtCorreoElectronico" className="form-label">Direccion</label> 
+                                        <div className="input-group">
+                                            <input type="text" className="form-control" id="txtCorreoElectronico" aria-describedby="inputGroupPrepend"  readOnly/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div className="row">
+
+                                <div className="col-md-3 mt-3">
+                                    <div className="form-group">
+                                        <label htmlFor="txtDistrito" className="form-label">Distrito</label> 
+                                        <div className="input-group">
+                                            <input type="text" className="form-control" id="txtDistrito" aria-describedby="inputGroupPrepend"  readOnly/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="col-md-3 mt-3">
+                                    <div className="form-group">
+                                        <label htmlFor="txtDistrito" className="form-label">Provincia</label> 
+                                        <div className="input-group">
+                                            <input type="text" className="form-control" id="txtDistrito" aria-describedby="inputGroupPrepend"  readOnly/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="col-md-3 mt-3">
+                                    <div className="form-group">
+                                        <label htmlFor="txtDistrito" className="form-label">Departamento</label> 
+                                        <div className="input-group">
+                                            <input type="text" className="form-control" id="txtDistrito" aria-describedby="inputGroupPrepend"  readOnly/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="col-md-3 mt-3">
+                                    <div className="form-group">
+                                        <label htmlFor="txtDistrito" className="form-label">Telefono</label> 
+                                        <div className="input-group">
+                                            <input type="text" className="form-control" id="txtDistrito" aria-describedby="inputGroupPrepend"  readOnly/>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -312,7 +401,7 @@ useEffect(() => {
                         <div className="col-md-4">
                             <div className="card ">
                                 <img src="https://cdn.pixabay.com/photo/2017/07/18/23/23/user-2517433_960_720.png"
-                                    className="card-img-top" alt="Sunset Over the Sea" />
+                                    className="card-img-top" alt="Sunset Over the Sea"  style={{borderRadius:'50rem'}}/>
                             </div>
                         </div>
                         
