@@ -10,7 +10,7 @@ export const AppRouter = () => {
     return (
         <Routes>
     
-                <Route path="/" element={ <SafelifeRoutes />} />
+                <Route path="/*" element={ <SafelifeRoutes />} />
 
             {/*
               (status === 'authenticated')
