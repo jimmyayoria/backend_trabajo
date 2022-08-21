@@ -1,0 +1,68 @@
+CREATE TABLE Clinica(
+  id    INTEGER AUTO_INCREMENT PRIMARY KEY, 
+  nombre VARCHAR(45),
+  direccion VARCHAR(45),
+  aforo INTEGER
+);
+
+CREATE TABLE Medico(
+  id    INTEGER AUTO_INCREMENT PRIMARY KEY, 
+  nombre VARCHAR(45),
+  apellido VARCHAR(45),
+  dni CHAR(8),
+  imagen VARCHAR(200)
+);
+
+CREATE TABLE Especialidad(
+  id    INTEGER AUTO_INCREMENT PRIMARY KEY, 
+  nombre VARCHAR(45)
+);
+
+CREATE TABLE Horario(
+  id    INTEGER AUTO_INCREMENT PRIMARY KEY, 
+  rango VARCHAR(45),
+  fecha VARCHAR(45)
+);
+
+CREATE TABLE Paciente(
+  id    INTEGER AUTO_INCREMENT PRIMARY KEY, 
+  nombre VARCHAR(45),
+  apellido VARCHAR(45),
+  dni VARCHAR(8),
+  telefono VARCHAR(9)
+);
+
+CREATE TABLE MedicoClinica (
+  id     INTEGER AUTO_INCREMENT PRIMARY KEY, 
+  id_clinica INTEGER, 
+  id_medico INTEGER,
+  FOREIGN KEY(id_clinica) REFERENCES Clinica(id),
+  FOREIGN KEY(id_medico) REFERENCES Medico(id)
+);
+
+CREATE TABLE MedicoEspecialidad (
+  id     INTEGER AUTO_INCREMENT PRIMARY KEY, 
+  id_clinica INTEGER, 
+  id_medico INTEGER,
+  FOREIGN KEY(id_clinica) REFERENCES Clinica(id),
+  FOREIGN KEY(id_medico) REFERENCES Especialidad(id)
+);
+
+CREATE TABLE MedicoHorario(
+  id     INTEGER AUTO_INCREMENT PRIMARY KEY, 
+  id_medico INTEGER, 
+  id_horario INTEGER,
+  FOREIGN KEY(id_medico) REFERENCES Medico(id),
+  FOREIGN KEY(id_horario) REFERENCES Horario(id)
+);
+
+CREATE TABLE Cita(
+  id    INTEGER AUTO_INCREMENT PRIMARY KEY, 
+  id_paciente VARCHAR(45),
+  rango VARCHAR(45),
+  fecha VARCHAR(45),
+  id_medico VARCHAR(8),
+  id_especialidad VARCHAR(9),
+  id_clinica INTEGER,
+  estado CHAR(1)
+);
