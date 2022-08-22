@@ -43,7 +43,7 @@ export const NavBar = () => {
                                 <i className="bi bi-house-door"></i>
                             </Link>
 
-                            </li>
+                            </li>asdasd
                             <li className="header-nav__menu-link-item">
                                 <a href="#about" className="header-nav_menu-link">Nosotros</a>
                             </li>
