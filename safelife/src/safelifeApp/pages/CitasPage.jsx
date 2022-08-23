@@ -5,9 +5,12 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 export const CitasPage=()=>{
 
-    const getCita= async (id)=>{
 
-        const documentFormCita = document.forms['formCita'];
+    let myModal = new bootstrap.Modal(document.getElementById('modalCita'), { keyboard: false});
+    
+    const getCita=  ()=>{ 
+
+        /*const documentFormCita = document.forms['formCita'];
     
         const res= await fetch(`${URL_BASE}cita/buscar/${id}`).then();
         const data= await res.json();
@@ -18,7 +21,7 @@ export const CitasPage=()=>{
         documentFormCita['doctor'].value=doctor.id;
         documentFormCita['especialidad'].value=especialidad.id;
         documentFormCita['fecha'].value=fechacita;
-        documentFormCita['hora'].value=hora;
+        documentFormCita['hora'].value=hora;*/
     
         myModal.show();
     }
@@ -49,6 +52,7 @@ export const CitasPage=()=>{
                     
                     eventClick: function(info) {
                         
+                        getCita();
                         console.log(info);
                         //console.log(idCita);
                         //idCita=info.id;
@@ -59,9 +63,9 @@ export const CitasPage=()=>{
                 });
             }
 
-useEffect(() => {
-    calendario();
-    }, []);
+    useEffect(() => {
+        calendario();
+        }, []);
 
 
     return (
@@ -410,7 +414,74 @@ useEffect(() => {
                 </div>
             </div>
 
+
+
+
+            <div className="modal fade" id="modalCita" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="staticBackdropLabel">Cita</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            <form id="formCita">
+
+                                <input type="text" className="form-control" name="id" hidden/>
+
+                                <div className="mb-3">
+                                    <label className="form-label">Doctor</label>
+                                    <select name="doctor" className="form-control" id="cmbDoctor">
+                                    </select>
+                                </div>
+                                <div className="mb-3">
+                                    <div className="form-group">
+                                        <label className="form-label">Especialidad</label>
+                                        <select name="especialidad" className="form-control" id="cmbEspecialidad">
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div className="row">
+                                    <div className="col-6">
+                                        <div className="mb-3">
+                                            <div className="form-group">
+                                                <label className="form-label">Fecha</label>
+                                                <input type="date" className="form-control" name="fecha"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-6">
+                                        <div className="mb-3">
+                                            <div className="form-group">
+                                                <label className="form-label">Hora</label>
+                                                <input type="time" className="form-control" name="hora"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                            </form>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" className="btn btn-primary" id="btnModificar">Modificar</button>
+                            <button type="button" className="btn btn-danger" id="btnEliminar">Eliminar</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
         </div>
+
 
     )
 }

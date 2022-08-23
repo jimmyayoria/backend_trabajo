@@ -27,18 +27,20 @@ CREATE TABLE Horario(
   fecha VARCHAR(45)
 );
 
-CREATE TABLE Paciente(
+
+CREATE TABLE Usuario(
   id    INTEGER AUTO_INCREMENT PRIMARY KEY, 
   nombres VARCHAR(45),
   apellidos VARCHAR(45),
   dni VARCHAR(8),
   telefono VARCHAR(9),
   edad VARCHAR(3),
-  correoElectronico VARCHAR(200),
+  email VARCHAR(200),
+  password VARCHAR(150),
   direccion VARCHAR(250),
   distrito VARCHAR(100),
   provincia VARCHAR(100),
-  departamento VARCHAR(100),
+  departamento VARCHAR(100)
 );
 
 CREATE TABLE MedicoClinica (
@@ -67,14 +69,16 @@ CREATE TABLE MedicoHorario(
 
 CREATE TABLE Cita(
   id    INTEGER AUTO_INCREMENT PRIMARY KEY, 
-  id_paciente VARCHAR(45),
+  id_usuario VARCHAR(45),
   rango VARCHAR(45),
   fecha VARCHAR(45),
   id_medico VARCHAR(8),
   id_especialidad VARCHAR(9),
-  id_clinica INTEGER,
   estado CHAR(1),
-  monto DECIMAL(5,2)
+  monto DECIMAL(5,2),
+  FOREIGN KEY(id_usuario ) REFERENCES Usuario(id),
+  FOREIGN KEY(id_medico ) REFERENCES Medico(id),
+  FOREIGN KEY(id_especialidad ) REFERENCES Especialidad(id)
 );
 
 
