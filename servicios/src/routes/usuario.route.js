@@ -17,7 +17,48 @@ function usuarioApi(app){
         }catch(err){
             console.log(err)
         }
-    })
+    });
+
+    router.post('/crear',async function(req,res){
+        try{
+            const {body : usuario} = req;
+            const crearUsuario = await objUsuarioService.create({usuario});
+            res.status(201).json({
+                status:true,
+                content:crearUsuario
+            })
+        }catch(err){
+            console.log(err)
+        }
+    });
+
+    router.get('/:id',async function(req,res){
+        try{
+
+            const {id} = req.params;
+            const usuario = await objUsuarioService.getOne({id});
+            res.status(201).json({
+                status:true,
+                content:usuario
+            })
+        }catch(err){
+            console.log(err)
+        }
+    });
+
+    router.get('/login/:email/:password',async function(req,res){
+        try{
+            console.log(req.params);
+            const {email,password} = req.params;
+            const usuario = await objUsuarioService.login(email,password);
+            res.status(201).json({
+                status:true,
+                content:usuario
+            })
+        }catch(err){
+            console.log(err)
+        }
+    });
 
 }
 
