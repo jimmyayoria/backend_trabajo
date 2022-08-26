@@ -69,18 +69,17 @@ CREATE TABLE MedicoHorario(
 
 CREATE TABLE Cita(
   id    INTEGER AUTO_INCREMENT PRIMARY KEY, 
-  id_usuario VARCHAR(45),
+  id_usuario INTEGER,
   rango VARCHAR(45),
   fecha VARCHAR(45),
-  id_medico VARCHAR(8),
-  id_especialidad VARCHAR(9),
+  id_medico INTEGER,
+  id_especialidad INTEGER,
   estado CHAR(1),
   monto DECIMAL(5,2),
-  FOREIGN KEY(id_usuario ) REFERENCES Usuario(id),
-  FOREIGN KEY(id_medico ) REFERENCES Medico(id),
-  FOREIGN KEY(id_especialidad ) REFERENCES Especialidad(id)
+  FOREIGN KEY(id_usuario) REFERENCES Usuario(id),
+  FOREIGN KEY(id_medico) REFERENCES Medico(id),
+  FOREIGN KEY(id_especialidad) REFERENCES Especialidad(id)
 );
-
 
 --DATA
 

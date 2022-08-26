@@ -4,7 +4,8 @@ const cors = require('cors');
 
 const medicoApi = require('./routes/doctor.route');
 const especialidadesApi = require('./routes/especialidad.route');
-const UsuarioApi = require('./routes/usuario.route');
+const usuarioApi = require('./routes/usuario.route');
+const citaApi = require('./routes/cita.route');
 
 const app = express();
 
@@ -20,7 +21,8 @@ app.get('/',(req,res)=>{
 
 medicoApi(app);
 especialidadesApi(app);
-UsuarioApi(app);
+usuarioApi(app);
+citaApi(app);
 
 //app.use('/',require('../routes/usuario.routes'));
 
