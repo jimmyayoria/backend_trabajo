@@ -53,10 +53,10 @@ CREATE TABLE MedicoClinica (
 
 CREATE TABLE MedicoEspecialidad (
   id     INTEGER AUTO_INCREMENT PRIMARY KEY, 
-  id_clinica INTEGER, 
+  id_especialidad INTEGER, 
   id_medico INTEGER,
-  FOREIGN KEY(id_clinica) REFERENCES Clinica(id),
-  FOREIGN KEY(id_medico) REFERENCES Especialidad(id)
+  FOREIGN KEY(id_especialidad) REFERENCES Especialidad(id),
+  FOREIGN KEY(id_medico) REFERENCES Medico(id)
 );
 
 CREATE TABLE MedicoHorario(
@@ -80,6 +80,11 @@ CREATE TABLE Cita(
   FOREIGN KEY(id_medico) REFERENCES Medico(id),
   FOREIGN KEY(id_especialidad) REFERENCES Especialidad(id)
 );
+
+--QUERY
+select * from Medico m inner join MedicoEspecialidad mes on (m.id=mes.id_medico)
+inner join Especialidad e on (e.id=mes.id_especialidad) where e.id=1
+
 
 --DATA
 
