@@ -11,7 +11,7 @@ export const Footer = () => {
             <li className="nav-item"><a href="#offices" className="link px-2">Sedes</a></li>
             <li className="nav-item"><a href="#contact" className="link px-2">Contactos</a></li>
             <li className="nav-item"><a href="#" className="link px-2">Staff</a></li>
-            <li className="nav-item"><a href="./Login.html" className="link px-2">Citas</a></li>
+            <li className="nav-item"><a href="./Login" className="link px-2">Citas</a></li>
             </ul>
             <p className="footer-bot text-center">© 2022 Health's TI</p>
         </footer>

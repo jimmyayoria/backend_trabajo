@@ -1,15 +1,17 @@
 import logo from '../../assets/img/logo.jpeg';
 import { useEffect } from "react";
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-
+import { useParams } from 'react-router';
 
 export const CitasPage=()=>{
 
+    const { id } = useParams();  
 
-    let myModal = new bootstrap.Modal(document.getElementById('modalCita'), { keyboard: false});
+    console.log(id);
     
     const getCita=  ()=>{ 
-
+        
+        let myModal = new bootstrap.Modal(document.getElementById('modalCita'), { keyboard: false});
         /*const documentFormCita = document.forms['formCita'];
     
         const res= await fetch(`${URL_BASE}cita/buscar/${id}`).then();
@@ -62,6 +64,7 @@ export const CitasPage=()=>{
                     }
                 });
             }
+    
 
     useEffect(() => {
         calendario();
@@ -71,6 +74,8 @@ export const CitasPage=()=>{
     return (
        
         <div className="container">
+
+               
 
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
 

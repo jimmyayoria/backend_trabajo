@@ -7,7 +7,7 @@ export const SafelifeRoutes = () => {
           <Route path="/" element={ <InicioPage /> } />
           <Route path="/staff" element={ <StaffPage /> } />
           <Route path="/login" element={ <LoginPage /> } />
-          <Route path="/citas" element={ <CitasPage /> } />
+          <Route path="/citas/:id" element={ <CitasPage /> } />
       </Routes>
     )
   }
