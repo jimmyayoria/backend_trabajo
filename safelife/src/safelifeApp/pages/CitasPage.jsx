@@ -45,6 +45,10 @@ export const CitasPage=()=>{
                     document.getElementById('txtProvincia').value=provincia;
                     document.getElementById('txtDepartamento').value=departamento;
                     document.getElementById('txtTelefono').value=telefono;
+
+                    const nombreCompleto=nombres+" "+apellidos;
+                    document.getElementById('navNombreUsuario').innerHTML=nombreCompleto.toUpperCase();
+
             })
 
 
