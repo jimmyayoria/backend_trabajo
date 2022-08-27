@@ -22,6 +22,8 @@ function usuarioApi(app){
     router.post('/crear',async function(req,res){
         try{
             const {body : usuario} = req;
+
+            console.log({usuario});
             const crearUsuario = await objUsuarioService.create({usuario});
             res.status(201).json({
                 status:true,

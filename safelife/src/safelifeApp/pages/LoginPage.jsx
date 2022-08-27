@@ -1,9 +1,13 @@
 import logo from '../../assets/img/logo.jpeg';
 import '../../assets/css/login.css';
 import { useEffect, useState } from "react";
+import axios from 'axios';
+import Swal from 'sweetalert2'
+import { useNavigate } from "react-router-dom";
 
 export const LoginPage=()=>{
 
+    const navigate = useNavigate();
 
     const [formRegistro, setFormRegistro] = useState({
         dni: '',
@@ -36,6 +40,8 @@ export const LoginPage=()=>{
         });
       };
 
+
+
       const handleChangeRegistro = (e) => {
         setFormRegistro({
           ...formRegistro,
@@ -43,23 +49,56 @@ export const LoginPage=()=>{
         });
       };
 
-      const handleSubmitRegister = (e) => {
+      const handleSubmitRegister = async (e) => {
         e.preventDefault();
         if ([dni.trim(), 
             nombres.trim(),
             apellidos.trim(),
-            telefono.trim(),
-            edad.trim(),
             email.trim(),
             password.trim(),
             direccion.trim(),
             distrito.trim(),
             provincia.trim(),
             departamento.trim()].includes('')) {
-          console.log('error');
+            console.log('error');
         } else {
-            console.log('registrado');
+
+              //let myModal = new bootstrap.Modal(document.getElementById('modalRegistroLogin'));
+
+              axios.post('http://localhost:5000/usuario/crear', formRegistro, {
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8',
+                    "Access-Control-Allow-Origin": "*",
+                    }
+                })
+                .then((response) => {
+                  
+                    Swal.fire({
+                        title: 'Creado correctamente',
+                        text: 'Usuario creado',
+                        icon: 'success'
+                    })
+                })
+                .catch((error) => {
+                  console.log(error);
+                })
+              
+
+            //console.log(data);
           //submitAppointmentsForm(formAppointment);
+
+          document.getElementById('email_').value='';
+          document.getElementById('password_').value='';
+          document.getElementById('dni_').value='';
+          document.getElementById('nombre_').value='';
+          document.getElementById('apellido_').value='';
+          document.getElementById('direccion_').value='';
+          document.getElementById('edad_').value='';
+          document.getElementById('telefono_').value='';
+          document.getElementById('distrito_').value='';
+          document.getElementById('provincia_').value='';
+          document.getElementById('departamento_').value='';
+
           setFormRegistro({
             dni: '',
             nombres: '',
@@ -75,6 +114,7 @@ export const LoginPage=()=>{
           });
           //setAlert(false);
         }
+
       };
 
       const handleSubmit = (e) => {
@@ -82,6 +122,8 @@ export const LoginPage=()=>{
         if ([emailLogin.trim(), passwordLogin.trim()].includes('')) {
           console.log('error');
         } else {
+
+            navigate('/citas/1');
             console.log('logeado');
           //submitAppointmentsForm(formAppointment);
           setFormLogin({
@@ -137,30 +179,30 @@ export const LoginPage=()=>{
                                             <div className="mb-3">
                                                 <div className="form-group">
                                                     <label className="form-label">Contraseña</label>
-                                                    <input type="password" className="form-control" name="password" onChange={handleChangeRegistro} required/>
+                                                    <input type="password" className="form-control" id='password_' name="password" onChange={handleChangeRegistro} required/>
                                                 </div>
                                             </div>
                                             <div className="mb-3">
                                                 <label className="form-label">DNI</label>
-                                                <input type="text" className="form-control" id="email_" name="dni" onChange={handleChangeRegistro} required/>
+                                                <input type="text" className="form-control" id="dni_" name="dni" onChange={handleChangeRegistro} required/>
                                             </div>
                                             <div className="mb-3">
                                                 <div className="form-group">
                                                     <label  className="form-label">Nombre</label>
-                                                    <input type="text" className="form-control"  name="nombres" onChange={handleChangeRegistro} required/>
+                                                    <input type="text" className="form-control" id='nombre_'  name="nombres" onChange={handleChangeRegistro} required/>
                                                 </div>
                                             </div>
                                             <div className="mb-3">
                                                 <div className="form-group">
                                                     <label className="form-label">Apellido</label>
-                                                    <input type="text" className="form-control" name="apellidos" onChange={handleChangeRegistro} required/>
+                                                    <input type="text" className="form-control" id='apellido_' name="apellidos" onChange={handleChangeRegistro} required/>
                                                 </div>
                                             </div>
 
                                             <div className="mb-3">
                                                 <div className="form-group">
                                                     <label className="form-label">Direccion</label>
-                                                    <input type="text" className="form-control" name="direccion" onChange={handleChangeRegistro} required/>
+                                                    <input type="text" className="form-control" id='direccion_' name="direccion" onChange={handleChangeRegistro} required/>
                                                 </div>
                                             </div>
 
@@ -169,13 +211,13 @@ export const LoginPage=()=>{
                                                 <div className="mb-3 col-4">
                                                     <div className="form-group">
                                                         <label className="form-label">Edad</label>
-                                                        <input type="number" className="form-control" name="edad" onChange={handleChangeRegistro} required/>
+                                                        <input type="number" className="form-control" id='edad_' name="edad" onChange={handleChangeRegistro} required/>
                                                     </div>
                                                 </div>
                                                 <div className="mb-3 col-8">
                                                     <div className="form-group">
                                                         <label className="form-label">Telefono</label>
-                                                        <input type="number" className="form-control" name="telefono" onChange={handleChangeRegistro} required/>
+                                                        <input type="number" className="form-control" id='telefono_' name="telefono" onChange={handleChangeRegistro} required/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -185,19 +227,19 @@ export const LoginPage=()=>{
                                                 <div className="mb-3 col-4">
                                                     <div className="form-group">
                                                         <label className="form-label">Distrito</label>
-                                                        <input type="text" className="form-control" name="distrito" onChange={handleChangeRegistro} required/>
+                                                        <input type="text" className="form-control" id='distrito_' name="distrito" onChange={handleChangeRegistro} required/>
                                                     </div>
                                                 </div>
                                                 <div className="mb-3 col-4">
                                                     <div className="form-group">
                                                         <label className="form-label">Provincia</label>
-                                                        <input type="text" className="form-control" name="provincia" onChange={handleChangeRegistro} required/>
+                                                        <input type="text" className="form-control" id='provincia_' name="provincia" onChange={handleChangeRegistro} required/>
                                                     </div>
                                                 </div>
                                                 <div className="mb-3 col-4">
                                                     <div className="form-group">
                                                         <label className="form-label">Departamento</label>
-                                                        <input type="text" className="form-control" name="departamento" onChange={handleChangeRegistro} required/>
+                                                        <input type="text" className="form-control" id='departamento_' name="departamento" onChange={handleChangeRegistro} required/>
                                                     </div>
                                                 </div>
 

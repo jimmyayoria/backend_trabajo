@@ -8,9 +8,11 @@ function citaApi(app){
 
     const objCitaService = new CitasService();
 
-    router.get('/',async function(req,res){
+    router.get('/:id',async function(req,res){
         try{
-            const citas = await objCitaService.getAll();
+
+            const {id} = req.params;
+            const citas = await objCitaService.getAll(id);
             res.status(200).json({
                 status:true,
                 content:citas

@@ -7,7 +7,7 @@ class EspecialidadService{
     }
 
     async getAll(){
-        const sqlAll = "SELECT nombre FROM Especialidad";
+        const sqlAll = "SELECT id,nombre FROM Especialidad";
         const result = await this.sql.querySql(sqlAll);
         return result;
     }

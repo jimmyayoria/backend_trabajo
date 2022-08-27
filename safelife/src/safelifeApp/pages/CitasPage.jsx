@@ -1,13 +1,54 @@
 import logo from '../../assets/img/logo.jpeg';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useParams } from 'react-router';
+import axios from 'axios';
 
 export const CitasPage=()=>{
 
     const { id } = useParams();  
 
-    console.log(id);
+    const [especialidades, setEspecialidades] = useState([]);
+
+    useEffect(()=>{
+
+        axios.get(`http://localhost:5000/especialidad`)
+        .then(res=>{
+            setEspecialidades(res.data.content);
+        });
+
+
+      },[]);
+
+      useEffect(()=>{
+
+        axios.get(`http://localhost:5000/usuario/${id}`)
+            .then(res=>{
+                const {nombres,
+                    apellidos,
+                    dni,
+                    telefono,
+                    edad,
+                    contrasenia,
+                    correoElectronico,
+                    direccion,
+                    departamento,
+                    provincia,
+                    distrito
+                    } = res.data.content[0];
+                    document.getElementById('txtNombreUsuario').value=nombres;
+                    document.getElementById('txtApellidosUsuario').value=apellidos;
+                    document.getElementById('txtEdad').value=edad;
+                    document.getElementById('txtCorreoElectronico').value=correoElectronico;
+                    document.getElementById('txtDireccion').value=direccion;
+                    document.getElementById('txtDistrito').value=distrito;
+                    document.getElementById('txtProvincia').value=provincia;
+                    document.getElementById('txtDepartamento').value=departamento;
+                    document.getElementById('txtTelefono').value=telefono;
+            })
+
+
+      },[]);
     
     const getCita=  ()=>{ 
         
@@ -29,14 +70,35 @@ export const CitasPage=()=>{
     }
 
 
-        const calendario=(eventos)=>{
+        const calendario= async (eventos)=>{
 
             const eventos2=[];
-            eventos2.push({
-                "id":2,
-                "title":'prueba',
-                "start":'2022-08-20'
-            });
+
+            await axios.get(`http://localhost:5000/cita/${id}`)
+            .then(res=>{
+
+                const {rango,
+                    fecha,
+                    id_medico,
+                    id_especialidad,
+                    estado,
+                    monto,
+                    } = res.data.content[0];
+                    
+                    document.getElementById('itemEspecialidad').innerHTML=id_especialidad;
+                    document.getElementById('fechaCita').value=fecha;
+                    document.getElementById('fechaHora').value=rango;
+                    document.getElementById('itemDoctor').innerHTML=id_medico;
+                    
+                    eventos2.push({
+                        "id":2,
+                        "title":'prueba',
+                        "start":fecha
+                    });
+
+            })
+            
+           
 
             $('#calendar').fullCalendar('destroy');
             $('#calendar').fullCalendar({
@@ -171,7 +233,18 @@ export const CitasPage=()=>{
                                             <div className="form-group">
                                                 <label htmlFor="cmbEspecialidadRegistro">Especialidad</label>
                                                 <select className="form-control" name="especialidad_" id="cmbEspecialidadRegistro" >
-                                                    <option value=""></option>
+                                                
+                                                <option value=""></option>
+                                                {especialidades.map((especialidad)=>{
+                                                    return (
+
+                                                        <option value={especialidad.id}>{especialidad.nombre}</option>
+                                                    )})
+
+                                                }
+                                            
+                                                    
+
                                                 </select>
                                                 <div className="invalid-feedback">Selecciona una especialidad.</div>
                                             </div>
@@ -337,14 +410,14 @@ export const CitasPage=()=>{
 
                             <div className="row">
 
-                                <div className="col-1 mt-3">
+                                <div className="col-2 mt-3">
                                     <div className="form-group">
                                         <label htmlFor="txtEdad" className="form-label">Edad</label>
                                         <input type="number" className="form-control" id="txtEdad" readOnly />
                                     </div>
                                 </div>
 
-                                <div className="col-md-5 mt-3">
+                                <div className="col-md-4 mt-3">
                                     <div className="form-group">
                                         <label htmlFor="txtCorreoElectronico" className="form-label">Correo Electronico</label> 
                                         <div className="input-group">
@@ -358,7 +431,7 @@ export const CitasPage=()=>{
                                     <div className="form-group">
                                         <label htmlFor="txtCorreoElectronico" className="form-label">Direccion</label> 
                                         <div className="input-group">
-                                            <input type="text" className="form-control" id="txtCorreoElectronico" aria-describedby="inputGroupPrepend"  readOnly/>
+                                            <input type="text" className="form-control" id="txtDireccion" aria-describedby="inputGroupPrepend"  readOnly/>
                                         </div>
                                     </div>
                                 </div>
@@ -380,7 +453,7 @@ export const CitasPage=()=>{
                                     <div className="form-group">
                                         <label htmlFor="txtDistrito" className="form-label">Provincia</label> 
                                         <div className="input-group">
-                                            <input type="text" className="form-control" id="txtDistrito" aria-describedby="inputGroupPrepend"  readOnly/>
+                                            <input type="text" className="form-control" id="txtProvincia" aria-describedby="inputGroupPrepend"  readOnly/>
                                         </div>
                                     </div>
                                 </div>
@@ -389,7 +462,7 @@ export const CitasPage=()=>{
                                     <div className="form-group">
                                         <label htmlFor="txtDistrito" className="form-label">Departamento</label> 
                                         <div className="input-group">
-                                            <input type="text" className="form-control" id="txtDistrito" aria-describedby="inputGroupPrepend"  readOnly/>
+                                            <input type="text" className="form-control" id="txtDepartamento" aria-describedby="inputGroupPrepend"  readOnly/>
                                         </div>
                                     </div>
                                 </div>
@@ -398,7 +471,7 @@ export const CitasPage=()=>{
                                     <div className="form-group">
                                         <label htmlFor="txtDistrito" className="form-label">Telefono</label> 
                                         <div className="input-group">
-                                            <input type="text" className="form-control" id="txtDistrito" aria-describedby="inputGroupPrepend"  readOnly/>
+                                            <input type="text" className="form-control" id="txtTelefono" aria-describedby="inputGroupPrepend"  readOnly/>
                                         </div>
                                     </div>
                                 </div>
@@ -437,13 +510,15 @@ export const CitasPage=()=>{
 
                                 <div className="mb-3">
                                     <label className="form-label">Doctor</label>
-                                    <select name="doctor" className="form-control" id="cmbDoctor">
+                                        <select name="doctor" className="form-control" id="cmbDoctor">
+                                        <option id="itemDoctor"></option>
                                     </select>
                                 </div>
                                 <div className="mb-3">
                                     <div className="form-group">
                                         <label className="form-label">Especialidad</label>
                                         <select name="especialidad" className="form-control" id="cmbEspecialidad">
+                                            <option id="itemEspecialidad"></option>
                                         </select>
                                     </div>
                                 </div>
@@ -453,7 +528,7 @@ export const CitasPage=()=>{
                                         <div className="mb-3">
                                             <div className="form-group">
                                                 <label className="form-label">Fecha</label>
-                                                <input type="date" className="form-control" name="fecha"/>
+                                                <input type="date" id='fechaCita' className="form-control" name="fecha"/>
                                             </div>
                                         </div>
                                     </div>
@@ -462,7 +537,7 @@ export const CitasPage=()=>{
                                         <div className="mb-3">
                                             <div className="form-group">
                                                 <label className="form-label">Hora</label>
-                                                <input type="time" className="form-control" name="hora"/>
+                                                <input type="time" id='fechaHora' className="form-control" name="hora"/>
                                             </div>
                                         </div>
                                     </div>
