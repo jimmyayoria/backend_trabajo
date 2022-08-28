@@ -19,6 +19,22 @@ function medicoApi(app){
         }
     })
 
+
+    
+    router.get('/ByEspecialidad/:id',async function(req,res){
+        try{
+
+            const {id} = req.params;
+            const medicos = await objDoctorService.getAllByEspecialidad(id);
+            res.status(200).json({
+                status:true,
+                content:medicos
+            })
+        }catch(err){
+            console.log(err)
+        }
+    })
+
 }
 
 module.exports = medicoApi;

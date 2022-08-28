@@ -12,6 +12,14 @@ class CitasService{
         return result;
     }
 
+
+    async getOne(id_cita){
+        const sqlAll = `SELECT id,id_usuario,rango,fecha,id_medico,id_especialidad,estado,monto FROM Cita where id=${id_cita}`;
+        const result = await this.sql.querySql(sqlAll);
+        return result;
+    }
+
+
     async create({cita}){
 
         const {id_usuario,rango,fecha,id_medico,id_especialidad,estado,monto} = cita;

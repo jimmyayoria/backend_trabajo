@@ -119,17 +119,45 @@ export const LoginPage=()=>{
 
       const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(formLogin);
         if ([emailLogin.trim(), passwordLogin.trim()].includes('')) {
-          console.log('error');
+
+          Swal.fire({
+            title: 'Error',
+            text: 'Debes ingresar un usuario y contraseña para continuar',
+            icon: 'error'
+             });
+
         } else {
 
-            navigate('/citas/1');
-            console.log('logeado');
+            axios.get(`http://localhost:5000/usuario/login/${emailLogin}/${passwordLogin}`)
+            .then(res=>{
+                console.log(res.data.content);
+
+                if(res.data.content.length>0)
+                {
+                    
+                    navigate(`/citas/${res.data.content[0].id}`);
+                    console.log('logeado');
+
+                }else{
+
+                    Swal.fire({
+                        title: 'Credenciales incorrectas',
+                        text: 'Usuario y/o password incorrectos',
+                        icon: 'error'
+                    })
+                }
+
+              
+
+            });
+    
           //submitAppointmentsForm(formAppointment);
-          setFormLogin({
+            /*   setFormLogin({
             emailLogin: '',
             passwordLogin: ''
-          });
+          });*/
           //setAlert(false);
         }
       };

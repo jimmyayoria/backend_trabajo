@@ -28,7 +28,7 @@ class UsuarioService{
     }
 
     async login(email,password){
-        const sqlAll = `SELECT nombres,apellidos,dni,telefono,edad,correoElectronico,contrasenia,direccion,distrito,provincia,departamento FROM Usuario where correoElectronico='${email}' and contrasenia='${password}'`;
+        const sqlAll = `SELECT id,nombres,apellidos,dni,telefono,edad,correoElectronico,contrasenia,direccion,distrito,provincia,departamento FROM Usuario where correoElectronico='${email}' and contrasenia='${password}'`;
         const result = await this.sql.querySql(sqlAll);
         return result;
     }

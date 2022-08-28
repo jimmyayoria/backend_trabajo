@@ -19,6 +19,7 @@ function especialidadesApi(app){
         }
     })
 
+
 }
 
 module.exports = especialidadesApi;
