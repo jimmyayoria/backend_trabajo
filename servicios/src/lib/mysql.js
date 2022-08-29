@@ -3,11 +3,18 @@ const mysql = require('mysql')
 class MysqlLib{
 
     constructor(){
-        this.dbSettings = {
+       /* this.dbSettings = {
             host : 'bt3kchazupa79ahb3prg-mysql.services.clever-cloud.com',
             user : 'uiz0z8wlwgrkot1v',
             password : 'mmoXQk3c095PQnqxUnir',
             database : 'bt3kchazupa79ahb3prg'
+        }*/
+
+        this.dbSettings = {
+            host : 'localhost',
+            user : 'root',
+            password : '1234',
+            database : 'safelife'
         }
     }
 

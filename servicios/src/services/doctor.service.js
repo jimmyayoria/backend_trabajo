@@ -13,8 +13,11 @@ class DoctorService{
     }
 
     async getAllByEspecialidad(id_especialidad){
-        const sqlAll = `select * from Medico m inner join MedicoEspecialidad mes on (m.id=mes.id_medico)
+
+        const sqlAll = `select m.id,m.nombre,m.apellido,m.dni,m.imagen,m.sede,e.nombre as nombreEspecialidad from Medico m inner join MedicoEspecialidad mes on (m.id=mes.id_medico)
         inner join Especialidad e on (e.id=mes.id_especialidad) where e.id=${id_especialidad}`;
+
+        console.log(sqlAll);
         const result = await this.sql.querySql(sqlAll);
         return result;
     }

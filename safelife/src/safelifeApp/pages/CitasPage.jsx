@@ -6,11 +6,40 @@ import axios from 'axios';
 
 export const CitasPage=()=>{
 
-    const { id } = useParams();  
+    const { id_} = useParams();  
 
     const [especialidades, setEspecialidades] = useState([]);
 
-    useEffect(()=>{
+    const [doctores, setDoctores] = useState([]);
+
+    const [citas, setCitas] = useState([]);
+
+    const [citaFormRegistro,setFormCitaRegistro] = useState({
+
+        id: 0,
+        id_usuario: id_,
+        rango: '',
+        fecha: '',
+        id_medico: 0,
+        id_especialidad: 0,
+        estado: '1',
+        monto: 50
+
+    });
+
+    const [detalleFormCita, setDetalleFormCita] = useState({
+        nombreDoctor:'',
+        nombreEspecialidad:'',
+    });
+
+
+    const {nombreDoctor,nombreEspecialidad}=detalleFormCita;
+
+
+    const {id,id_usuario,fecha,id_medico,id_especialidad,rango,estado,monto}=citaFormRegistro;
+
+
+        useEffect(()=>{
 
         axios.get(`http://localhost:5000/especialidad`)
         .then(res=>{
@@ -22,7 +51,7 @@ export const CitasPage=()=>{
 
       useEffect(()=>{
 
-        axios.get(`http://localhost:5000/usuario/${id}`)
+        axios.get(`http://localhost:5000/usuario/${id_}`)
             .then(res=>{
                 const {nombres,
                     apellidos,
@@ -53,55 +82,81 @@ export const CitasPage=()=>{
 
 
       },[]);
+
+      const getDoctoresPorEspecialidad=(id_especialidad)=>{
+
+        axios.get(`http://localhost:5000/doctor/ByEspecialidad/${id_especialidad}`)
+        .then(res=>{
+            setDoctores(res.data.content);
+            console.log(res.data.content);
+        });
+
+      }
     
-    const getCita=  ()=>{ 
+    const getCita= async (id)=>{ 
         
         let myModal = new bootstrap.Modal(document.getElementById('modalCita'), { keyboard: false});
-        /*const documentFormCita = document.forms['formCita'];
-    
-        const res= await fetch(`${URL_BASE}cita/buscar/${id}`).then();
-        const data= await res.json();
-    
-        const {doctor,especialidad,fechacita,hora}=data;
-    
-        documentFormCita['id'].value=id;
-        documentFormCita['doctor'].value=doctor.id;
-        documentFormCita['especialidad'].value=especialidad.id;
-        documentFormCita['fecha'].value=fechacita;
-        documentFormCita['hora'].value=hora;*/
+
+        await axios.get(`http://localhost:5000/cita/${id}`)
+        .then(res=>{
+
+            const {rango,
+                fecha,
+                id_medico,
+                id_especialidad,
+                estado,
+                monto,
+                } = res.data.content[0];
+                
+                document.getElementById('itemEspecialidad').innerHTML=id_especialidad;
+                document.getElementById('fechaCita').value=fecha;
+                document.getElementById('fechaHora').value=rango;
+                document.getElementById('itemDoctor').innerHTML=id_medico;
+                
+        })
     
         myModal.show();
     }
 
 
-        const calendario= async (eventos)=>{
+        const calendario=  async ()=>{
 
-            const eventos2=[];
+            const eventos=[];
 
-            await axios.get(`http://localhost:5000/cita/${id}`)
+            await axios.get(`http://localhost:5000/cita/listar/${id_}`)
             .then(res=>{
 
-                const {rango,
-                    fecha,
-                    id_medico,
-                    id_especialidad,
-                    estado,
-                    monto,
-                    } = res.data.content[0];
+
+                setCitas(res.data.content);
+
+                const citas_=res.data.content;
+
+                console.log(citas_);
+
+                citas_.forEach(cita => {
+
+                    console.log(cita);
                     
-                    document.getElementById('itemEspecialidad').innerHTML=id_especialidad;
-                    document.getElementById('fechaCita').value=fecha;
-                    document.getElementById('fechaHora').value=rango;
-                    document.getElementById('itemDoctor').innerHTML=id_medico;
+                    const {
+                        id,
+                        rango,
+                        fecha,
+                        id_medico,
+                        id_especialidad,
+                        estado,
+                        monto,
+                        }=cita;
+
+                        eventos.push({
+                            "id":id,
+                            "title":'prueba',
+                            "start":fecha
+                        });
+
+                });
                     
-                    eventos2.push({
-                        "id":2,
-                        "title":'prueba',
-                        "start":fecha
-                    });
 
             })
-            
            
 
             $('#calendar').fullCalendar('destroy');
@@ -116,25 +171,70 @@ export const CitasPage=()=>{
                     navLinks: true, // can click day/week names to navigate views
                     editable: true,
                     eventLimit: true, // allow "more" link when too many events
-                    events: eventos2,
+                    events: eventos,
                     
                     eventClick: function(info) {
                         
-                        getCita();
-                        console.log(info);
-                        //console.log(idCita);
-                        //idCita=info.id;
-                         // console.log(idCita);
-                        //getCita(info.id);
+                        getCita(info.id);
                         
                     }
                 });
             }
     
 
+    const handleChange = (e) => {
+
+        setFormCitaRegistro({
+            ...citaFormRegistro,
+            [e.target.name]: e.target.value
+        });
+
+        };
+
+
     useEffect(() => {
         calendario();
         }, []);
+        
+
+    const handleSubmit =(e)=>{
+
+        e.preventDefault();
+        if ([nombreDoctor.trim(), nombreEspecialidad.trim(), fecha.trim(), rango.trim()].includes('')) {
+
+          Swal.fire({
+            title: 'Error',
+            text: 'Debes completar el formulario para continuar',
+            icon: 'error'
+             });
+
+        } else {
+
+            axios.post('http://localhost:5000/cita/crear', citaFormRegistro, {
+                
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8',
+                    "Access-Control-Allow-Origin": "*",
+                    }
+                })
+                .then((response) => {
+                  
+                    Swal.fire({
+                        title: 'Creado correctamente',
+                        text: 'Usuario creado',
+                        icon: 'success'
+                    }).then((result) => {
+                        
+                        window.location.reload();
+                    });
+
+                })
+                .catch((error) => {
+                  console.log(error);
+                })
+        }
+
+    }
 
 
     return (
@@ -213,7 +313,7 @@ export const CitasPage=()=>{
 
                     <div className="row ">
                     
-                        <form className="row g-3 needs-validation" id="frmRegistroCita" >
+                        <form className="row g-3 needs-validation" id="frmRegistroCita" onSubmit={handleSubmit}>
 
                             <div className="col-4 ">
                                 <div className="list-group list-group-light" id="list-tab" role="tablist">
@@ -236,14 +336,23 @@ export const CitasPage=()=>{
 
                                             <div className="form-group">
                                                 <label htmlFor="cmbEspecialidadRegistro">Especialidad</label>
-                                                <select className="form-control" name="especialidad_" id="cmbEspecialidadRegistro" >
+                                                <select className="form-control" name="especialidad_" id="cmbEspecialidadRegistro" onChange={(e)=>{
+                                                
+                                                    getDoctoresPorEspecialidad(e.target.value);
+                                                    setFormCitaRegistro({
+                                                        ...citaFormRegistro,
+                                                        id_especialidad:e.target.value
+                                                    });
+                                                }}>
                                                 
                                                 <option value=""></option>
-                                                {especialidades.map((especialidad)=>{
-                                                    return (
+                                                {
+                                                
+                                                    especialidades.map((especialidad)=>{
+                                                        return (
 
-                                                        <option value={especialidad.id}>{especialidad.nombre}</option>
-                                                    )})
+                                                            <option value={especialidad.id}>{especialidad.nombre}</option>
+                                                        )})
 
                                                 }
                                             
@@ -267,13 +376,13 @@ export const CitasPage=()=>{
 
                                         <div className="col-md-4">
                                             <div className="input-group">
-                                                <input type="date" className="form-control" name="fecha_" id="validationCustomUsername" aria-describedby="inputGroupPrepend"  />
+                                                <input type="date" className="form-control" name="fecha" onChange={handleChange} id="validationCustomUsername" aria-describedby="inputGroupPrepend"  />
                                             </div>
                                         </div>
 
                                         <div className="col-md-2">
                                             <div className="form-outline">
-                                                <input type="time" className="form-control" name="hora_" id="validationCustom03"  />
+                                                <input type="time" className="form-control" name="rango" onChange={handleChange} id="validationCustom03"  />
                                             </div>
                                         </div>
 
@@ -297,33 +406,77 @@ export const CitasPage=()=>{
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                <div className="d-flex align-items-center">
-                                                <img
-                                                    src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                                                    style={ {width: '45px', height: '45px'}}
-                                                    className="rounded-circle"
-                                                    />
-                                                <div className="ms-3">
-                                                    <p className="fw-bold mb-1">John Doe</p>
-                                                    <p className="text-muted mb-0">john.doe@gmail.com</p>
-                                                </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <p className="fw-normal mb-1">Software engineer</p>
-                                                <p className="text-muted mb-0">IT department</p>
-                                            </td>
-                                            <td>
-                                                <span className="badge badge-success rounded-pill d-inline">Disponible</span>
-                                            </td>
-                                            <td>
-                                                <button type="button" className="btn btn-link btn-sm btn-rounded" id='1' onClick={(e)=>{ console.log(e.target.id)}}>
-                                                    Seleccionar
-                                                </button>
-                                            </td>
-                                        </tr>
+                                        
+
+                                            {
+                                            
+                                                doctores.map((doctor)=>{
+
+                                                    const { 
+                                                            id,
+                                                            apellido,
+                                                            nombre,
+                                                            dni,
+                                                            imagen,
+                                                            nombreEspecialidad,
+                                                            sede
+                                                        }=doctor;
+
+                                                    return (
+
+                                                        <tr >                                                 
+                                                            <td>
+                                                                <div className="d-flex align-items-center">
+                                                                <img
+                                                                    src={imagen}
+                                                                    style={ {width: '45px', height: '45px'}}
+                                                                    className="rounded-circle"
+                                                                    />
+                                                                <div className="ms-3">
+                                                                    <p className="fw-bold mb-1" id={'nombreDoctor_'+id}>{nombre} {apellido}</p>
+                                                                    <p className="text-muted mb-0">{dni}</p>
+                                                                </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <p className="fw-normal mb-1" id={'nombreEspecialidad_'+id}>{nombreEspecialidad}</p>
+                                                                <p className="text-muted mb-0">{sede}</p>
+                                                            </td>
+                                                            <td>
+                                                                <span className="badge badge-success rounded-pill d-inline">Disponible</span>
+                                                            </td>
+                                                            <td>
+                                                                <button type="button" className="btn btn-link btn-sm btn-rounded" id={id} onClick={(e)=>{ 
+                                                                   
+                                                                        setFormCitaRegistro({
+                                                                            ...citaFormRegistro,
+                                                                            id_medico:e.target.id
+                                                                        });
+                                                                        
+
+                                                                        setDetalleFormCita({
+                                                                            ...detalleFormCita,
+                                                                            nombreDoctor: document.querySelector(`#nombreDoctor_${e.target.id}`).innerHTML,
+                                                                            nombreEspecialidad:document.querySelector(`#nombreEspecialidad_${e.target.id}`).innerHTML,
+                                                                        });
+
+                                                                        console.log(detalleFormCita);
+                                                                    }
+                                                                    
+                                                                    }>
+                                                                    Seleccionar
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+
+                                                    )
+
+                                                })
+                                                
+                                            }
+
+                                       
+                                        
 
                                     
                                     </tbody>
@@ -340,21 +493,26 @@ export const CitasPage=()=>{
 
                                                     <div className="form-group col-3">
                                                         <label> Especialidad</label>
-                                                        <input className='form-control' type="text" value="Neurologia" readOnly/>
+                                                        <input className='form-control' type="text" value={nombreEspecialidad} readOnly/>
                                                     </div>
 
                                                     <div className="form-group col-5">
                                                         <label> Doctor</label>
-                                                        <input className='form-control' type="text" value="Miguel Guevara Alejandro" readOnly/>
+                                                        <input className='form-control' type="text" value={nombreDoctor} readOnly/>
                                                     </div>
 
                                                     <div className="form-group col-3">
                                                         <label> Fecha</label>
-                                                        <input className='form-control' type="date" value="2022-08-20" readOnly/>
+                                                        <input className='form-control' type="date" value={fecha} readOnly/>
+                                                    </div>
+
+                                                    <div className="form-group col-2 mt-2">
+                                                        <label> Hora</label>
+                                                        <input className='form-control' type="time" value={rango} readOnly/>
                                                     </div>
 
 
-                                                    <div className="form-group col-1">
+                                                    <div className="form-group col-1 mt-2">
                                                             <label> Sala</label>
                                                             <input className='form-control' type="text" value="5" readOnly/>
                                                     </div>
@@ -371,7 +529,7 @@ export const CitasPage=()=>{
                                                 </div>
 
                                                 <div className="col-12 mt-3">
-                                                    <button className='btn btn-primary'>CANCELAR MONTO</button>
+                                                    <button className='btn btn-primary' type='submit' >CANCELAR MONTO</button>
                                                 </div>
 
                                         </div>
@@ -394,19 +552,19 @@ export const CitasPage=()=>{
 
                             <div className="row">
 
-                                <input type="text" className="form-control" id="txtIdUsuario" value="Mark" hidden />
+                                <input type="text" className="form-control" id="txtIdUsuario"  hidden />
 
                                 <div className="col-md-6">
                                     <div className="form-group">
                                         <label htmlFor="txtNombreUsuario" className="form-label">Nombres</label>
-                                        <input type="text" className="form-control" id="txtNombreUsuario" value="Mark" readOnly />
+                                        <input type="text" className="form-control" id="txtNombreUsuario" readOnly />
                                     </div>
                                 </div>
 
                                 <div className="col-md-6">
                                     <div className="form-group">
                                         <label htmlFor="txtApellidosUsuario" className="form-label">Apellidos</label>
-                                        <input type="text" className="form-control" id="txtApellidosUsuario" value="Otto" readOnly />
+                                        <input type="text" className="form-control" id="txtApellidosUsuario"  readOnly />
                                     </div>
                                 </div>
 
