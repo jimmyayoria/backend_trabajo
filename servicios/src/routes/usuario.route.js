@@ -50,6 +50,8 @@ function usuarioApi(app){
         }
     });
 
+   
+
     router.get('/login/:email/:password',async function(req,res){
         try{
             console.log(req.params);

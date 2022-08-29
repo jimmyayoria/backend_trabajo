@@ -3,8 +3,11 @@ import { useEffect, useState } from "react";
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useParams } from 'react-router';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 export const CitasPage=()=>{
+
+    const navigate = useNavigate();
 
     const { id_} = useParams();  
 
@@ -95,6 +98,73 @@ export const CitasPage=()=>{
         });
 
       }
+
+    const cerraSesion=()=>{
+    
+        Swal.fire({
+            title: '¿Deseas cerrar sesion?',
+            text: "Esta saliendo del sistema",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, salir'
+          }).then( async (result) => {
+
+            Swal.fire(
+                'Cerrando Sesion',
+                'Vuelva pronto',
+                'success'
+            ).then(()=>{
+
+                navigate(`/Login`);
+
+            });
+
+          });
+
+
+    }
+
+    const eliminarCita= async ()=>{
+
+        const id=document.getElementById('txtIdCitaDetalle').value;
+        console.log(id);
+
+        Swal.fire({
+            title: 'Deseas eliminar esta cita?',
+            text: "No podras volver a visualizar este registro",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Eliminar'
+          }).then( async (result) => {
+
+            if (result.isConfirmed) {
+
+                
+                await axios.delete(`http://localhost:5000/cita/${id}`).then(()=>{
+                    Swal.fire(
+                        'Eliminado',
+                        'La cita se ha eliminado correctamente',
+                        'success'
+                    ).then(()=>{
+
+                        window.location.reload();
+
+                    });
+
+
+                });
+              
+            }
+
+          })
+
+        
+    
+    }
     
     const getCita= async (id)=>{ 
         
@@ -103,7 +173,9 @@ export const CitasPage=()=>{
         await axios.get(`http://localhost:5000/cita/${id}`)
         .then(res=>{
 
-            const {rango,
+            const {
+                id,
+                rango,
                 fecha,
                 nombre,
                 apellido,
@@ -111,18 +183,24 @@ export const CitasPage=()=>{
                 imagen,
                 estado,
                 monto,
+                dni
                 } = res.data.content[0];
 
 
+                
+                document.getElementById('txtIdCitaDetalle').value=id;
                 document.getElementById('txtEspecialidadCitaDetalle').innerHTML=especialidad;
                 document.getElementById('txtFechaCitaDetalle').innerHTML=fecha;
                 document.getElementById('txtHoraCitaDetalle').innerHTML=rango;
                 document.getElementById('txtNombreDoctorCitaDetalle').innerHTML=nombre +' '+ apellido;
+                document.getElementById("imgMedicoCita").src=imagen;
+                document.getElementById('txtDniDoctorCitaDetalle').innerHTML=dni;
                 
-                document.getElementById('itemEspecialidad').innerHTML=especialidad;
+                
+              /*  document.getElementById('itemEspecialidad').innerHTML=especialidad;
                 document.getElementById('fechaCita').value=fecha;
                 document.getElementById('fechaHora').value=rango;
-                document.getElementById('itemDoctor').innerHTML=nombre +' '+ apellido;
+                document.getElementById('itemDoctor').innerHTML=nombre +' '+ apellido;*/
                 
         })
     
@@ -145,8 +223,6 @@ export const CitasPage=()=>{
                 console.log(citas_);
 
                 citas_.forEach(cita => {
-
-                    console.log(cita);
                     
                     const {
                         id,
@@ -156,11 +232,14 @@ export const CitasPage=()=>{
                         id_especialidad,
                         estado,
                         monto,
+                        nombre,
+                        apellido,
+                        especialidad
                         }=cita;
 
                         eventos.push({
                             "id":id,
-                            "title":'prueba',
+                            "title":nombre +' \n '+apellido +' \n '+especialidad.toUpperCase()+' \n '+rango,
                             "start":fecha
                         });
 
@@ -231,8 +310,8 @@ export const CitasPage=()=>{
                 .then((response) => {
                   
                     Swal.fire({
-                        title: 'Creado correctamente',
-                        text: 'Usuario creado',
+                        title: 'Cita Registrada',
+                        text: 'Se ha reservado la cita',
                         icon: 'success'
                     }).then((result) => {
                         
@@ -277,7 +356,7 @@ export const CitasPage=()=>{
 
                         <div className="d-flex align-items-center">
                             Bienvenido: &nbsp; <span className="me-4" id="navNombreUsuario"> MIGUEL ANGEL GUEVARA ALEJANDRO</span>
-                            <button type="button" className="btn btn-primary me-3" id="btnCerrarSesion">
+                            <button type="button" className="btn btn-primary me-3" onClick={cerraSesion} id="btnCerrarSesion">
                                 Cerrar Sesion
                             </button>
                         </div>
@@ -693,6 +772,8 @@ export const CitasPage=()=>{
                                 <tbody>
                                     <tr>
                                     <td>
+                                        <input hidden value='' id='txtIdCitaDetalle'/>
+
                                         <div class="d-flex align-items-center">
                                         <img  id='imgMedicoCita'
                                             src="https://mdbootstrap.com/img/new/avatars/7.jpg"
@@ -714,48 +795,13 @@ export const CitasPage=()=>{
                                     
                                     <td id='txtFechaCitaDetalle'></td>
                                     <td id='txtHoraCitaDetalle'> </td >
-                                    
-                                    
+
                                     </tr>
                                 </tbody>
                                 </table>
 
-                                <input type="text" className="form-control" name="id" hidden/>
-
-                                <div className="mb-3">
-                                    <label className="form-label">Doctor</label>
-                                        <select name="doctor" className="form-control" id="cmbDoctor">
-                                        <option id="itemDoctor"></option>
-                                    </select>
-                                </div>
-                                <div className="mb-3">
-                                    <div className="form-group">
-                                        <label className="form-label">Especialidad</label>
-                                        <select name="especialidad" className="form-control" id="cmbEspecialidad">
-                                            <option id="itemEspecialidad"></option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div className="row">
-                                    <div className="col-6">
-                                        <div className="mb-3">
-                                            <div className="form-group">
-                                                <label className="form-label">Fecha</label>
-                                                <input type="date" id='fechaCita' className="form-control" name="fecha"/>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="col-6">
-                                        <div className="mb-3">
-                                            <div className="form-group">
-                                                <label className="form-label">Hora</label>
-                                                <input type="time" id='fechaHora' className="form-control" name="hora"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            
+                               
 
 
 
@@ -764,7 +810,7 @@ export const CitasPage=()=>{
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="button" className="btn btn-danger" id="btnEliminar">Eliminar</button>
+                            <button type="button" className="btn btn-danger" onClick={eliminarCita} id="btnEliminar">Eliminar</button>
 
                         </div>
                     </div>

@@ -23,6 +23,20 @@ function citaApi(app){
         }
     })
 
+    router.delete('/:id',async function(req,res){
+        try{
+
+            const {id} = req.params;
+            const usuario = await objCitaService.delete(id);
+            res.status(201).json({
+                status:true,
+                content:usuario
+            })
+        }catch(err){
+            console.log(err)
+        }
+    });
+
     router.get('/listar/:id',async function(req,res){
         try{
 
