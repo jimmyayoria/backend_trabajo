@@ -7,9 +7,11 @@ function usuarioApi(app){
 
     const objUsuarioService = new UsuarioService();
 
-    router.get('/validarEmail',async function(req,res){
+    router.get('/validarEmail/:email',async function(req,res){
         try{
-            const existe = await objUsuarioService.VerificarEmailRepetido();
+
+            const {email} = req.params;
+            const existe = await objUsuarioService.VerificarEmailRepetido(email);
             res.status(200).json({
                 status:true,
                 content:existe

@@ -13,7 +13,7 @@ class MysqlLib{
         this.dbSettings = {
             host : 'localhost',
             user : 'root',
-            password : '1234',
+            password : '',
             database : 'safelife'
         }
     }

@@ -19,9 +19,9 @@ class UsuarioService{
         return result;
     }
 
-    async VerificarEmailRepetido(){
+    async VerificarEmailRepetido(email){
 
-        const sqlAll = "SELECT COUNT(*) AS CANTIDAD FROM `Usuario` WHERE correoElectronico='miguel@gmail.com'";
+        const sqlAll = `SELECT COUNT(*) AS CANTIDAD FROM Usuario WHERE correoElectronico='${email}'`;
         const result = await this.sql.querySql(sqlAll);
         return result;
         

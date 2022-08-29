@@ -64,56 +64,76 @@ export const LoginPage=()=>{
         } else {
 
               //let myModal = new bootstrap.Modal(document.getElementById('modalRegistroLogin'));
+            
+              let emailRepetido=false;
 
-              axios.post('http://localhost:5000/usuario/crear', formRegistro, {
-                headers: {
-                    'Content-Type': 'application/json;charset=UTF-8',
-                    "Access-Control-Allow-Origin": "*",
-                    }
-                })
-                .then((response) => {
+              emailRepetido= await axios.get(`http://localhost:5000/usuario/validarEmail/${email}`)
+              .then(res=>{
+                  console.log(res);
+                  const {CANTIDAD} =res.data.content[0];
+                  if(Number(CANTIDAD)>0)
+                  {
+                     return emailRepetido=true;
+                  }
                   
+              });
+
+              if(!emailRepetido){
+                console.log('repetido');
+                        axios.post('http://localhost:5000/usuario/crear', formRegistro, {
+                        headers: {
+                            'Content-Type': 'application/json;charset=UTF-8',
+                            "Access-Control-Allow-Origin": "*",
+                            }
+                        })
+                        .then((response) => {
+                            
+                            Swal.fire({
+                                title: 'Creado correctamente',
+                                text: 'Usuario creado',
+                                icon: 'success'
+                            })
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        })
+                        
+        
+                    document.getElementById('email_').value='';
+                    document.getElementById('password_').value='';
+                    document.getElementById('dni_').value='';
+                    document.getElementById('nombre_').value='';
+                    document.getElementById('apellido_').value='';
+                    document.getElementById('direccion_').value='';
+                    document.getElementById('edad_').value='';
+                    document.getElementById('telefono_').value='';
+                    document.getElementById('distrito_').value='';
+                    document.getElementById('provincia_').value='';
+                    document.getElementById('departamento_').value='';
+        
+                    setFormRegistro({
+                    dni: '',
+                    nombres: '',
+                    apellidos: '',
+                    telefono: 0,
+                    edad: 0,
+                    email: '',
+                    password:'',
+                    direccion:'',
+                    distrito:'',
+                    provincia:'',
+                    departamento:''
+                    });
+                }else{
                     Swal.fire({
-                        title: 'Creado correctamente',
-                        text: 'Usuario creado',
-                        icon: 'success'
+                        title: 'Email repetido',
+                        text: 'El email ingresado ya pertenece a otra persona, ingrese otro por favor.',
+                        icon: 'error'
                     })
-                })
-                .catch((error) => {
-                  console.log(error);
-                })
-              
+                }
 
-            //console.log(data);
-          //submitAppointmentsForm(formAppointment);
-
-          document.getElementById('email_').value='';
-          document.getElementById('password_').value='';
-          document.getElementById('dni_').value='';
-          document.getElementById('nombre_').value='';
-          document.getElementById('apellido_').value='';
-          document.getElementById('direccion_').value='';
-          document.getElementById('edad_').value='';
-          document.getElementById('telefono_').value='';
-          document.getElementById('distrito_').value='';
-          document.getElementById('provincia_').value='';
-          document.getElementById('departamento_').value='';
-
-          setFormRegistro({
-            dni: '',
-            nombres: '',
-            apellidos: '',
-            telefono: 0,
-            edad: 0,
-            email: '',
-            password:'',
-            direccion:'',
-            distrito:'',
-            provincia:'',
-            departamento:''
-          });
-          //setAlert(false);
         }
+
 
       };
 
@@ -207,7 +227,7 @@ export const LoginPage=()=>{
                                             <div className="mb-3">
                                                 <div className="form-group">
                                                     <label className="form-label">Contraseña</label>
-                                                    <input type="password" className="form-control" id='password_' name="password" onChange={handleChangeRegistro} required/>
+                                                    <input type="password" className="form-control" id='password_' name="password" onChange={handleChangeRegistro}  required/>
                                                 </div>
                                             </div>
                                             <div className="mb-3">

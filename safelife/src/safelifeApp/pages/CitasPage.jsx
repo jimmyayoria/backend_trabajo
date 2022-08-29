@@ -14,6 +14,8 @@ export const CitasPage=()=>{
 
     const [citas, setCitas] = useState([]);
 
+
+
     const [citaFormRegistro,setFormCitaRegistro] = useState({
 
         id: 0,
@@ -37,6 +39,7 @@ export const CitasPage=()=>{
 
 
     const {id,id_usuario,fecha,id_medico,id_especialidad,rango,estado,monto}=citaFormRegistro;
+
 
 
         useEffect(()=>{
@@ -102,16 +105,24 @@ export const CitasPage=()=>{
 
             const {rango,
                 fecha,
-                id_medico,
-                id_especialidad,
+                nombre,
+                apellido,
+                especialidad,
+                imagen,
                 estado,
                 monto,
                 } = res.data.content[0];
+
+
+                document.getElementById('txtEspecialidadCitaDetalle').innerHTML=especialidad;
+                document.getElementById('txtFechaCitaDetalle').innerHTML=fecha;
+                document.getElementById('txtHoraCitaDetalle').innerHTML=rango;
+                document.getElementById('txtNombreDoctorCitaDetalle').innerHTML=nombre +' '+ apellido;
                 
-                document.getElementById('itemEspecialidad').innerHTML=id_especialidad;
+                document.getElementById('itemEspecialidad').innerHTML=especialidad;
                 document.getElementById('fechaCita').value=fecha;
                 document.getElementById('fechaHora').value=rango;
-                document.getElementById('itemDoctor').innerHTML=id_medico;
+                document.getElementById('itemDoctor').innerHTML=nombre +' '+ apellido;
                 
         })
     
@@ -659,7 +670,7 @@ export const CitasPage=()=>{
 
             <div className="modal fade" id="modalCita" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div className="modal-dialog">
+                <div className="modal-dialog modal-dialog modal-lg">
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title" id="staticBackdropLabel">Cita</h5>
@@ -667,6 +678,47 @@ export const CitasPage=()=>{
                         </div>
                         <div className="modal-body">
                             <form id="formCita">
+
+
+                            <table class="table align-middle mb-0 bg-white">
+                                <thead class="bg-light">
+                                    <tr>
+                                    <th>Medico</th>
+                                    <th>Especialidad</th>
+                                    <th>Estado</th>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                        <img  id='imgMedicoCita'
+                                            src="https://mdbootstrap.com/img/new/avatars/7.jpg"
+                                            class="rounded-circle"
+                                            alt=""
+                                            style={ {width: '45px', height: '45px'}}
+                                            />
+                                        <div class="ms-3">
+                                            <p class="fw-bold mb-1" id='txtNombreDoctorCitaDetalle'>Kate Hunington</p>
+                                            <p class="text-muted mb-0" id='txtDniDoctorCitaDetalle'>kate.hunington@gmail.com</p>
+                                        </div>
+                                        </div>
+                                    </td>
+                                    <td id='txtEspecialidadCitaDetalle'>
+                                        <p class="fw-normal mb-1" >Designer</p>
+                                        <p class="text-muted mb-0" >UI/UX</p>
+                                    </td>
+                                    <td ><span class="badge badge-warning rounded-pill d-inline">Registrado</span></td>
+                                    
+                                    <td id='txtFechaCitaDetalle'></td>
+                                    <td id='txtHoraCitaDetalle'> </td >
+                                    
+                                    
+                                    </tr>
+                                </tbody>
+                                </table>
 
                                 <input type="text" className="form-control" name="id" hidden/>
 
@@ -712,7 +764,6 @@ export const CitasPage=()=>{
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="button" className="btn btn-primary" id="btnModificar">Modificar</button>
                             <button type="button" className="btn btn-danger" id="btnEliminar">Eliminar</button>
 
                         </div>
