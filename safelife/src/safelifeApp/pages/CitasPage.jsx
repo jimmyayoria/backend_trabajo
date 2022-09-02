@@ -7,6 +7,9 @@ import { useNavigate } from "react-router-dom";
 
 export const CitasPage=()=>{
 
+
+    const API ='https://app-safelife.herokuapp.com/'; //http://localhost:5000/
+
     const navigate = useNavigate();
 
     const { id_} = useParams();  
@@ -45,7 +48,7 @@ export const CitasPage=()=>{
 
         useEffect(()=>{
 
-        axios.get(`http://localhost:5000/especialidad`)
+        axios.get(`${API}especialidad`)
         .then(res=>{
             setEspecialidades(res.data.content);
         });
@@ -55,7 +58,7 @@ export const CitasPage=()=>{
 
       useEffect(()=>{
 
-        axios.get(`http://localhost:5000/usuario/${id_}`)
+        axios.get(`${API}usuario/${id_}`)
             .then(res=>{
                 const {nombres,
                     apellidos,
@@ -89,7 +92,7 @@ export const CitasPage=()=>{
 
       const getDoctoresPorEspecialidad=(id_especialidad)=>{
 
-        axios.get(`http://localhost:5000/doctor/ByEspecialidad/${id_especialidad}`)
+        axios.get(`${API}doctor/ByEspecialidad/${id_especialidad}`)
         .then(res=>{
             setDoctores(res.data.content);
             console.log(res.data.content);
@@ -142,7 +145,7 @@ export const CitasPage=()=>{
             if (result.isConfirmed) {
 
                 
-                await axios.delete(`http://localhost:5000/cita/${id}`).then(()=>{
+                await axios.delete(`${API}cita/${id}`).then(()=>{
                     Swal.fire(
                         'Eliminado',
                         'La cita se ha eliminado correctamente',
@@ -168,7 +171,7 @@ export const CitasPage=()=>{
         
         let myModal = new bootstrap.Modal(document.getElementById('modalCita'), { keyboard: false});
 
-        await axios.get(`http://localhost:5000/cita/${id}`)
+        await axios.get(`${API}cita/${id}`)
         .then(res=>{
 
             const {
@@ -210,7 +213,7 @@ export const CitasPage=()=>{
 
             const eventos=[];
 
-            await axios.get(`http://localhost:5000/cita/listar/${id_}`)
+            await axios.get(`${API}cita/listar/${id_}`)
             .then(res=>{
 
 
@@ -298,7 +301,7 @@ export const CitasPage=()=>{
 
         } else {
 
-            axios.post('http://localhost:5000/cita/crear', citaFormRegistro, {
+            axios.post('${API}cita/crear', citaFormRegistro, {
                 
                 headers: {
                     'Content-Type': 'application/json;charset=UTF-8',

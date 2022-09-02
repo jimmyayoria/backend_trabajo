@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 export const LoginPage=()=>{
 
+    const API ='https://app-safelife.herokuapp.com/'; //http://localhost:5000/
+    
     const navigate = useNavigate();
 
     const [formRegistro, setFormRegistro] = useState({
@@ -67,7 +69,7 @@ export const LoginPage=()=>{
             
               let emailRepetido=false;
 
-              emailRepetido= await axios.get(`http://localhost:5000/usuario/validarEmail/${email}`)
+              emailRepetido= await axios.get(`${API}usuario/validarEmail/${email}`)
               .then(res=>{
                   console.log(res);
                   const {CANTIDAD} =res.data.content[0];
@@ -80,7 +82,7 @@ export const LoginPage=()=>{
 
               if(!emailRepetido){
                 console.log('repetido');
-                        axios.post('http://localhost:5000/usuario/crear', formRegistro, {
+                        axios.post('${API}usuario/crear', formRegistro, {
                         headers: {
                             'Content-Type': 'application/json;charset=UTF-8',
                             "Access-Control-Allow-Origin": "*",
@@ -150,7 +152,7 @@ export const LoginPage=()=>{
 
         } else {
 
-            axios.get(`http://localhost:5000/usuario/login/${emailLogin}/${passwordLogin}`)
+            axios.get(`${API}usuario/login/${emailLogin}/${passwordLogin}`)
             .then(res=>{
                 console.log(res.data.content);
 

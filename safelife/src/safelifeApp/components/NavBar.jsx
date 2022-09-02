@@ -57,10 +57,11 @@ export const NavBar = () => {
                                 <a href="#contact" className="header-nav_menu-link">Contactos</a>
                             </li>
                             <li className="header-nav__menu-link-item">
-                                <a href="./staff" className="header-nav_menu-link">Staff</a>
+                                <Link to='./staff' className="header-nav_menu-link">Citas</Link>
                             </li>
                             <li className="header-nav__menu-link-item">
-                                <a href="./Login" className="header-nav_menu-link">Citas</a>
+                                <Link to='./Login' className="header-nav_menu-link">Citas</Link>
+                                
                             </li>
                         </ul>
                     </div>
