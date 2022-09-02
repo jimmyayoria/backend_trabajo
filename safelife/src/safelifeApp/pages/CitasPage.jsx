@@ -8,7 +8,9 @@ import { useNavigate } from "react-router-dom";
 export const CitasPage=()=>{
 
 
-    const API ='https://app-safelife.herokuapp.com/'; //http://localhost:5000/
+    const API = 'http://localhost:5000/'; 
+    
+    //'https://app-safelife.herokuapp.com/'; //http://localhost:5000/
 
     //const history = useHistory()
 
@@ -432,11 +434,13 @@ export const CitasPage=()=>{
                                                 <label htmlFor="cmbEspecialidadRegistro">Especialidad</label>
                                                 <select className="form-control" name="especialidad_" id="cmbEspecialidadRegistro" onChange={(e)=>{
                                                 
+                                                    const id_esp=Number(e.target.value);
                                                     getDoctoresPorEspecialidad(e.target.value);
                                                     setFormCitaRegistro({
                                                         ...citaFormRegistro,
-                                                        id_especialidad:e.target.value
+                                                        id_especialidad:id_esp
                                                     });
+
                                                 }}>
                                                 
                                                 <option value=""></option>
@@ -619,7 +623,7 @@ export const CitasPage=()=>{
 
                                                 <div className="form-group col-3">
                                                     <label> Monto a cancelar</label>
-                                                    <input className='form-control' type="text" value="50.00" readOnly/>
+                                                    <input className='form-control' type="text" value={monto} readOnly/>
                                                 </div>
 
                                                 <div className="col-12 mt-3">
@@ -803,11 +807,6 @@ export const CitasPage=()=>{
                                     </tr>
                                 </tbody>
                                 </table>
-
-                            
-                               
-
-
 
 
                             </form>

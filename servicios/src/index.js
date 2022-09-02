@@ -11,19 +11,30 @@ const citaApi = require('./routes/cita.route');
 const app = express();
 
 app.use(cors());
+
+// Directorio Público
+app.use( express.static('src/public') );
+
 app.use(express.json());
 
-app.get('/',(req,res)=>{
+
+
+/*app.get('/',(req,res)=>{
     res.json({
         status:true,
         content:'servidor activo'
     })
-});
+});*/
 
 medicoApi(app);
 especialidadesApi(app);
 usuarioApi(app);
 citaApi(app);
+
+
+app.get('*',(req,res)=>{
+   res.sendFile(__dirname+'/public/index.html');
+});
 
 //app.use('/',require('../routes/usuario.routes'));
 
