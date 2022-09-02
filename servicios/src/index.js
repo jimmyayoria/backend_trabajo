@@ -1,6 +1,7 @@
 const express = require('express');
 //const {config} = require('../config');
 const cors = require('cors');
+require('dotenv').config();
 
 const medicoApi = require('./routes/doctor.route');
 const especialidadesApi = require('./routes/especialidad.route');
@@ -26,6 +27,6 @@ citaApi(app);
 
 //app.use('/',require('../routes/usuario.routes'));
 
-app.listen(5000,function(){
-    console.log(`ms usuarios : http://localhost:5000`);
+app.listen(process.env.PORT,function(){
+    console.log(`ms usuarios : http://localhost:${process.env.PORT}`);
 })
