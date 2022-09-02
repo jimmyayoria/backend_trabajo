@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 export const LoginPage=()=>{
 
     const API ='https://app-safelife.herokuapp.com/'; //http://localhost:5000/
-    
+
     const navigate = useNavigate();
 
     const [formRegistro, setFormRegistro] = useState({
@@ -82,7 +82,7 @@ export const LoginPage=()=>{
 
               if(!emailRepetido){
                 console.log('repetido');
-                        axios.post('${API}usuario/crear', formRegistro, {
+                        axios.post(`${API}usuario/crear`, formRegistro, {
                         headers: {
                             'Content-Type': 'application/json;charset=UTF-8',
                             "Access-Control-Allow-Origin": "*",
