@@ -301,7 +301,7 @@ export const CitasPage=()=>{
 
         } else {
 
-            axios.post('${API}cita/crear', citaFormRegistro, {
+            axios.post(`${API}cita/crear`, citaFormRegistro, {
                 
                 headers: {
                     'Content-Type': 'application/json;charset=UTF-8',
