@@ -10,6 +10,8 @@ export const CitasPage=()=>{
 
     const API ='https://app-safelife.herokuapp.com/'; //http://localhost:5000/
 
+    //const history = useHistory()
+
     const navigate = useNavigate();
 
     const { id_} = useParams();  
@@ -316,7 +318,8 @@ export const CitasPage=()=>{
                         icon: 'success'
                     }).then((result) => {
                         
-                        window.location.reload();
+                        navigate(0);
+                        //window.location.reload();
                     });
 
                 })
