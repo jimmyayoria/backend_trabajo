@@ -117,3 +117,9 @@ INSERT INTO doctor(nombre, apellido,especialidad) VALUES('Cesar Anibal','Alarcon
 INSERT INTO doctor(nombre, apellido,especialidad) VALUES('Jose Samuel','Alarcon Vera', 'cirugia');
 
 INSERT INTO Cita (id_usuario,rango,fecha,id_medico,id_especialidad,estado,monto) values(1,'16:30','2022-08-30',2,2,1,80.00)
+
+
+insert into medicoespecialidad(id_especialidad,id_medico) values(3,4);
+insert into medicoespecialidad(id_especialidad,id_medico) values(4,5);
+insert into medicoespecialidad(id_especialidad,id_medico) values(4,6);
+insert into medicoespecialidad(id_especialidad,id_medico) values(4,7);

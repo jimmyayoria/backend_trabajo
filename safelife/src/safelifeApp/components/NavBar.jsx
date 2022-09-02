@@ -23,7 +23,7 @@ export const NavBar = () => {
         <header className="header">
             <nav className="header-nav">
                 <div className="header-nav__container">
-                    <a href="./index.html" className="header-nav__link-logo-container">
+                    <a href="./" className="header-nav__link-logo-container">
                         <img src={logo}  alt="Logo Clínica" className="header-nav__link-logo"/>
                     </a>
                     <div className="header-nav__theme-menu-container">

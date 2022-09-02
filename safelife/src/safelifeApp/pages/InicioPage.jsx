@@ -181,8 +181,8 @@ export const InicioPage = () => {
                                         </h3>
                                         <p class="specialties__item-data-about">Nos encargamos del Estudio, tratamiento de la piel y de la prevención de las posibles enfermedades en la piel de nuestros pacientes.</p>
                                         <div class="specialties__item-button-container">
-                                            <a href="#" class="specialties__item-button">👨‍⚕️Staff</a>
-                                            <a href="./Login.html" class="specialties__item-button">📄Citas</a>
+                                            <a href="./staff" class="specialties__item-button">👨‍⚕️Staff</a>
+                                            <a href="./Login" class="specialties__item-button">📄Citas</a>
                                         </div>
                                     </div>
                                 </div>
@@ -202,8 +202,8 @@ export const InicioPage = () => {
                                         </h3>
                                         <p class="specialties__item-data-about">Brindamos tratamientos fisioterapéuticos con enfoque de tratamiento en neurodesarrollo, psicomotricidad terapéutica e hidroterapia.</p>
                                         <div class="specialties__item-button-container">
-                                            <a href="#" class="specialties__item-button">👨‍⚕️Staff</a>
-                                            <a href="./Login.html" class="specialties__item-button">📄Citas</a>
+                                            <a href="./staff" class="specialties__item-button">👨‍⚕️Staff</a>
+                                            <a href="./Login" class="specialties__item-button">📄Citas</a>
                                         </div>
                                     </div>
                                 </div>
@@ -223,8 +223,8 @@ export const InicioPage = () => {
                                         </h3>
                                         <p class="specialties__item-data-about">Nos centramos en el diagnóstico, tratamiento y prevención de problemas de salud relacionados con el corazón, arterias y venas dentro del sistema.</p>
                                         <div class="specialties__item-button-container">
-                                            <a href="#" class="specialties__item-button">👨‍⚕️Staff</a>
-                                            <a href="./Login.html" class="specialties__item-button">📄Citas</a>
+                                            <a href="./staff" class="specialties__item-button">👨‍⚕️Staff</a>
+                                            <a href="./Login" class="specialties__item-button">📄Citas</a>
                                         </div>
                                     </div>
                                 </div>
@@ -244,8 +244,8 @@ export const InicioPage = () => {
                                         </h3>
                                         <p class="specialties__item-data-about">Ofrecemos servicio completo y avanzado en diagnóstico, tratamiento y prevención de enfermedades del estómago y el aparato digestivo.</p>
                                         <div class="specialties__item-button-container">
-                                            <a href="#" class="specialties__item-button">👨‍⚕️Staff</a>
-                                            <a href="./Login.html" class="specialties__item-button">📄Citas</a>
+                                            <a href="./staff" class="specialties__item-button">👨‍⚕️Staff</a>
+                                            <a href="./Login" class="specialties__item-button">📄Citas</a>
                                         </div>
                                     </div>
                                 </div>
@@ -265,8 +265,8 @@ export const InicioPage = () => {
                                         </h3>
                                         <p class="specialties__item-data-about">Nuestro staff médico es responsable del cuidado integral de la salud de tus hijos, desde antes de su llegada hasta su adolescencia.</p>
                                         <div class="specialties__item-button-container">
-                                            <a href="#" class="specialties__item-button">👨‍⚕️Staff</a>
-                                            <a href="./Login.html" class="specialties__item-button">📄Citas</a>
+                                            <a href="./staff" class="specialties__item-button">👨‍⚕️Staff</a>
+                                            <a href="./Login" class="specialties__item-button">📄Citas</a>
                                         </div>
                                     </div>
                                 </div>
@@ -286,8 +286,8 @@ export const InicioPage = () => {
                                         </h3>
                                         <p class="specialties__item-data-about">Nos especializamos en Cirugía general, abarcando operaciones del aparato digestivo, sistema hepatobilio-pancreático y sistema endocrino.</p>
                                         <div class="specialties__item-button-container">
-                                            <a href="#" class="specialties__item-button">👨‍⚕️Staff</a>
-                                            <a href="./Login.html" class="specialties__item-button">📄Citas</a>
+                                            <a href="./staff" class="specialties__item-button">👨‍⚕️Staff</a>
+                                            <a href="./Login" class="specialties__item-button">📄Citas</a>
                                         </div>
                                     </div>
                                 </div>

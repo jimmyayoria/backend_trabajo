@@ -17,8 +17,6 @@ export const CitasPage=()=>{
 
     const [citas, setCitas] = useState([]);
 
-
-
     const [citaFormRegistro,setFormCitaRegistro] = useState({
 
         id: 0,
