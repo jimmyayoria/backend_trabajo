@@ -7,11 +7,11 @@ export const StaffPage=()=>{
 
 
     const API ='https://app-safelife.herokuapp.com/'; //http://localhost:5000/
-    
+
     const [doctores, setDoctores] = useState([]);
 
     useEffect(()=>{
-        axios.get('${API}doctor')
+        axios.get(`${API}doctor`)
         .then(res=>{
           setDoctores(res.data.content);
     
