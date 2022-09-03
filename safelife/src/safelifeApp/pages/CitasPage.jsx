@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 export const CitasPage=()=>{
 
 
-    const API = 'http://localhost:5000/'; 
+    const API = 'https://app-safelife.herokuapp.com/'; 
     
     //'https://app-safelife.herokuapp.com/'; //http://localhost:5000/
 
