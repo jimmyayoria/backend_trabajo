@@ -70,15 +70,15 @@ export const InicioPage = () => {
                     <div class="about-container">
                         <h2 class="about__title">👨‍⚕️ Nosotros 👩‍⚕️</h2>
                         <div class="about__description-container">
-                            <p class="about__description-p">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi
-                                temporibus earum qui provident, nostrum repudiandae facilis dolore asperiores? At repudiandae
-                                dolorum unde laboriosam cumque quisquam reiciendis laudantium, quod beatae accusantium earum
-                                minima similique? Repellat quod, accusantium ratione, quia ut similique excepturi atque
-                                voluptate adipisci, iste accusamus nihil alias fugit eum velit officiis eos voluptas odio.
-                                Facilis eos officia, inventore autem, quis neque quae similique consectetur at blanditiis
-                                eligendi iste quia eius deleniti delectus distinctio dolor cupiditate aliquid ad? Ullam, iusto
-                                error. Rem suscipit sapiente similique tenetur cumque quis corrupti nobis, vero odio
-                                reprehenderit a minima ipsam nam facilis praesentium eveniet.</p>
+                            <p class="about__description-p">Somos una red de Clínica y Centros médicos en la capital, con la tecnología más moderna y el Staff médico más comprometido con la salud de nuestros pacientes y la de su familia. Disponemos de una gran cantidad de especialidades para prevenir, tratar, recuperar y rehabilitar a nuestros pacientes adultos y niños.
+                                Nos cuidamos para cuidar. El bienestar comienza con nosotros.
+                                »Promovemos activamente nuestro bienestar.
+                                »Tratamos a todos con cariño y respeto. <br/>
+                                »Vivimos en un clima de confianza y apoyo mutuo.
+                                Conectados por un Propósito.<br/>
+                                »Comunicamos asertiva y oportunamente.<br/>
+                                »Brindamos la mejor experiencia a los pacientes y cuidadores.<br/>
+                                »Formamos equipos multidisciplinarios para crear mejores resultados.</p>
 
                             <img class="about__description-img" src={clinica} alt="Foto Clínica"/>
                         </div>
@@ -301,11 +301,11 @@ export const InicioPage = () => {
                         <h2 class="offices__title">🏥 Sedes 🏥</h2>
                         <div class="offices__offices-container">
                             <ul class="offices__offices-list">
-                                <li class="offices__offices-item">SEDE 1: Dirección sede 1</li>
-                                <li class="offices__offices-item">SEDE 2: Dirección sede 2</li>
-                                <li class="offices__offices-item">SEDE 3: Dirección sede 3</li>
-                                <li class="offices__offices-item">SEDE 4: Dirección sede 4</li>
-                                <li class="offices__offices-item">SEDE 5: Dirección sede 5</li>
+                                <li class="offices__offices-item">SEDE 1: Callao</li>
+                                <li class="offices__offices-item">SEDE 2: Cercado de Lima</li>
+                                <li class="offices__offices-item">SEDE 3: Jesus María</li>
+                                <li class="offices__offices-item">SEDE 4: San Borja</li>
+                                <li class="offices__offices-item">SEDE 5: Santa Anita</li>
                             </ul>
                             <div class="offices__offices-map-container">
                                 <iframe src="https://www.google.com/maps/d/embed?mid=1SHFYiZI4txabTxm05ErfNca12IWrarc&ehbc=2E312F" class="offices__offices-map"></iframe>
