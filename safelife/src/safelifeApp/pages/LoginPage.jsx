@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 export const LoginPage=()=>{
 
-    const API ='https://app-safelife.herokuapp.com/'; //http://localhost:5000/
+    //const API ='https://app-safelife.herokuapp.com/'; //http://localhost:5000/
+    const API ='http://localhost:5000/'; //http://localhost:5000/
 
     const navigate = useNavigate();
 

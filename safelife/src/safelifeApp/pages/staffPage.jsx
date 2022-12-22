@@ -6,7 +6,8 @@ import '../../assets/css/index.css';
 export const StaffPage=()=>{
 
 
-    const API ='https://app-safelife.herokuapp.com/'; //http://localhost:5000/
+    //const API ='https://app-safelife.herokuapp.com/'; //http://localhost:5000/
+    const API ='http://localhost:5000/'; //http://localhost:5000/
 
     const [doctores, setDoctores] = useState([]);
 
